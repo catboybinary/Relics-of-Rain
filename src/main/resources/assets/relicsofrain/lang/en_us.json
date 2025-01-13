@@ -1,0 +1,30 @@
+{
+  "death.attack.freeze.item": "%1$s froze to death because of %2$s's %3$s",
+  "death.attack.relicsofrain.electricity": "%1$s learned why we avoid high voltage",
+  "death.attack.relicsofrain.electricity.player": "%1$s was electrocuted while fighting %2$s",
+  "death.attack.relicsofrain.electricity.item": "%1$s got zapped by %2$s and their trusty %3$s",
+
+  "entity.relicsofrain.lightning_arc": "Lightning Arc",
+
+  "itemGroup.relicsofrain": "Relics of Rain",
+
+  "item.relicsofrain.ukulele": "Ukulele",
+  "tooltip.relics.ukulele.description": "...and his music was electric.",
+  "tooltip.relics.ukulele.ability.lightning_chain": "Lightning Chain",
+  "tooltip.relics.ukulele.ability.lightning_chain.description": "When hitting someone, there is a %1$s%% chance to create chain lightning that hits up to %2$s other targets within a %3$sm radius, dealing %4$s%% total damage to each",
+
+  "item.relicsofrain.frost_relic": "Frost Relic",
+  "tooltip.relics.frost_relic.description": "Killing enemies surrounds you with an ice storm.",
+  "tooltip.relics.frost_relic.ability.ice_storm": "Ice Storm",
+  "tooltip.relics.frost_relic.ability.ice_storm.description": "Killing an enemy surrounds you with an ice storm that deals %1$s%% of base damage per second and slows enemies for 1.5s. The storm grows with every kill, increasing its radius by 2m. Stacks up to %2$sm",
+
+  "item.relicsofrain.energy_drink": "Energy Drink",
+  "tooltip.relics.energy_drink.description": "Increases your sprinting speed!",
+  "tooltip.relics.energy_drink.ability.speed_boost": "Speed Boost",
+  "tooltip.relics.energy_drink.ability.speed_boost.description": "Sprint speed is improved by %1$s%%",
+
+  "item.relicsofrain.platinum_horseshoe": "Platinum Horseshoe",
+  "tooltip.relics.platinum_horseshoe.description": "Luck is on your side.",
+  "tooltip.relics.platinum_horseshoe.ability.try_again": "Try again!",
+  "tooltip.relics.platinum_horseshoe.ability.try_again.description": "All random effects are rolled +%1$s times for a favorable outcome"
+}

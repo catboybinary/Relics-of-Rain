@@ -1,0 +1,53 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 3,
+      "entries": [
+        {
+          "type": "minecraft:tag",
+          "name": "minecraft:stone_crafting_materials",
+          "expand": true,
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chain",
+          "weight": 1
+        }
+      ],
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "min": 2,
+            "max": 3
+          },
+          "add": false
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:tag",
+          "name": "relicsofrain:uncommon",
+          "expand": true,
+          "weight": 1,
+          "quality": 2
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "relicsofrain:common",
+          "expand": true,
+          "weight": 3,
+          "quality": 0
+        }
+      ],
+      "functions": [],
+      "conditions": []
+    }
+  ],
+  "functions": []
+}

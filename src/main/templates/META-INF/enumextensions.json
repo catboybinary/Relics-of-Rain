@@ -1,0 +1,31 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "RELICSOFRAIN_UNCOMMON",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "meow/binary/relicsofrain/registries/RarityRegistry",
+        "field": "UNCOMMON_RARITY"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "RELICSOFRAIN_LEGENDARY",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "meow/binary/relicsofrain/registries/RarityRegistry",
+        "field": "LEGENDARY_RARITY"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "RELICSOFRAIN_LUNAR",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "meow/binary/relicsofrain/registries/RarityRegistry",
+        "field": "LUNAR_RARITY"
+      }
+    }
+  ]
+}

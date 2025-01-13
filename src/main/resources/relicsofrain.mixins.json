@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "meow.binary.relicsofrain.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "relicsofrain.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+    "EntityEffectAccessor",
+    "ItemInHandRendererMixin",
+    "ItemRendererMixin",
+    "OutlineBufferSourceAccessor",
+    "SimpleBakedModelMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

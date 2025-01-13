@@ -1,0 +1,4 @@
+{
+  "entities": ["minecraft:wolf"],
+  "slots": ["head", "back", "charm"]
+}

@@ -1,0 +1,20 @@
+{
+  "death.attack.freeze.item": "%1$s был заморожен насмерть %2$s при помощи %3$s",
+  "death.attack.relicsofrain.electricity": "%1$s узнал, почему не стоит совать пальцы в розетку",
+  "death.attack.relicsofrain.electricity.player": "%1$s был убит электричеством пока дрался с %2$s",
+  "death.attack.relicsofrain.electricity.item": "%1$s получил разряд от %2$s и его верного %3$s",
+
+  "entity.relicsofrain.lightning_arc": "Электрическая Цепь",
+
+  "itemGroup.relicsofrain": "Relics of Rain",
+
+  "item.relicsofrain.ukulele": "Укулеле",
+  "tooltip.relics.ukulele.description": "...и его музыка была электрической.",
+  "tooltip.relics.ukulele.ability.lightning_chain": "Электрическая Цепь",
+  "tooltip.relics.ukulele.ability.lightning_chain.description": "При ударе существует вероятность %1$s%% вызвать цепную молнию, которая поражает до %2$s других целей в радиусе %3$sм, нанося каждой из них %4$s%% от общего урона.",
+
+  "item.relicsofrain.frost_relic": "Снежная реликвия",
+  "tooltip.relics.frost_relic.description": "Убийство врагов окружает вас ледяным штормом.",
+  "tooltip.relics.frost_relic.ability.ice_storm": "Ледяной Шторм",
+  "tooltip.relics.frost_relic.ability.ice_storm.description": "Убийство врага окружает вас ледяным штормом, который наносит %1$s%% от базового урона в секунду и замедляет врагов на 1.5 секунды. Шторм увеличивается с каждым убийством, увеличивая радиус на 2 м. Суммируется до %2$sм."
+}
