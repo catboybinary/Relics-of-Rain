@@ -186,7 +186,7 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
             for (LivingEntity entity : toHurt) {
                 entity.invulnerableTime = 0;
                 if (entity.hurt(
-                        ItemDamageSource.get(DamageTypes.FREEZE, slotContext.entity(), slotContext.entity(), stack),
+                        ItemDamageSource.get(DamageTypes.FREEZE, entity.level(), slotContext.entity(), slotContext.entity(), stack),
                         (float) (baseDamage * relic.getStatValue(stack, "ice_storm", "damage_percentage"))
                 )) {
                     entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 1, false, true), slotContext.entity());

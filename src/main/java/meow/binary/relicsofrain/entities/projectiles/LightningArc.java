@@ -92,7 +92,7 @@ public class LightningArc extends ThrowableProjectile implements ITargetableEnti
         setPos(getTarget().getEyePosition());
         getTarget().invulnerableTime = 0;
         LivingEntity owner = getOwner() instanceof LivingEntity Lowner ? Lowner : null;
-        if (getTarget().hurt(ItemDamageSource.get(DamageTypeRegistry.ELECTRICITY, this, owner, itemStack), (float) damage)) {
+        if (getTarget().hurt(ItemDamageSource.get(DamageTypeRegistry.ELECTRICITY, level(), this, owner, itemStack), (float) damage)) {
             if (itemStack.getItem() instanceof IRelicItem relic) {
                 relic.spreadRelicExperience(owner, itemStack, 1);
             }

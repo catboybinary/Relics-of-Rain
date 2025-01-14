@@ -11,6 +11,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,12 +28,12 @@ public class ItemDamageSource extends DamageSource {
         return new ItemDamageSource(type, directEntity, causingEntity, damageSourcePosition, itemUsed);
     }
 
-    public static ItemDamageSource get(ResourceKey<DamageType> type, Entity directEntity, @Nullable Entity causingEntity, @Nullable ItemStack itemUsed) {
-        return get(directEntity.level().registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(type), directEntity, causingEntity, null, itemUsed);
+    public static ItemDamageSource get(ResourceKey<DamageType> type, Level level, Entity directEntity, @Nullable Entity causingEntity, @Nullable ItemStack itemUsed) {
+        return get(level.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(type), directEntity, causingEntity, null, itemUsed);
     }
 
-    public static ItemDamageSource get(Entity directEntity, @Nullable Entity causingEntity, @Nullable ItemStack itemUsed) {
-        return get(DamageTypes.GENERIC, directEntity, causingEntity, itemUsed);
+    public static ItemDamageSource get(Level level, Entity directEntity, @Nullable Entity causingEntity, @Nullable ItemStack itemUsed) {
+        return get(DamageTypes.GENERIC, level, directEntity, causingEntity, itemUsed);
     }
 
     @Override

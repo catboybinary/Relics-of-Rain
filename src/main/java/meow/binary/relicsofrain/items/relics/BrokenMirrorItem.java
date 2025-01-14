@@ -1,21 +1,37 @@
 package meow.binary.relicsofrain.items.relics;
 
+import it.hurts.sskirillss.relics.init.EffectRegistry;
 import it.hurts.sskirillss.relics.items.relics.MagicMirrorItem;
 import it.hurts.sskirillss.relics.items.relics.base.data.RelicData;
+import meow.binary.relicsofrain.api.ItemDamageSource;
 import meow.binary.relicsofrain.items.AbstractRORItem;
 import meow.binary.relicsofrain.registries.ItemRegistry;
 import meow.binary.relicsofrain.registries.RarityRegistry;
+import meow.binary.relicsofrain.util.EntityUtils;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.StructureTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import top.theillusivec4.curios.api.SlotContext;
 
 public class BrokenMirrorItem extends AbstractRORItem {
 
@@ -29,14 +45,57 @@ public class BrokenMirrorItem extends AbstractRORItem {
                 .build();
     }
 
+    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+        ItemStack stack = playerIn.getItemInHand(handIn);
+        if (!playerIn.getCooldowns().isOnCooldown(ItemRegistry.BROKEN_MIRROR.asItem()) && !worldIn.isClientSide()) {
+            ServerPlayer serverPlayer = (ServerPlayer) playerIn;
+            ServerLevel serverLevel = (ServerLevel) serverPlayer.level();
+
+            playerIn.startUsingItem(handIn);
+            return InteractionResultHolder.pass(stack);
+        }
+        return InteractionResultHolder.fail(stack);
+    }
+
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
+        if (!world.isClientSide() && entity instanceof ServerPlayer player) {
+            player.getCooldowns().addCooldown(stack.getItem(), 20);
+            ServerLevel serverLevel = (ServerLevel) player.level();
+            BlockPos struct = serverLevel.findNearestMapStructure(
+                    StructureTags.MINESHAFT, player.blockPosition(), 1000, true
+            );
+            if (struct == null) return stack;
+            BlockPos blockPos = EntityUtils.findNearestSafePos(serverLevel, struct, 20);
+            if (blockPos == null) return stack;
+            Vec3 pos = blockPos.getBottomCenter();
+            player.teleportTo(pos.x, pos.y, pos.z);
+            player.hurt(ItemDamageSource.get(DamageTypes.MAGIC, serverLevel, null, null, stack), 3);
+            player.addEffect(new MobEffectInstance(EffectRegistry.BLEEDING, 40, 0, false, true, true));
+        }
+        return stack;
+    }
+
+    public UseAnim getUseAnimation(ItemStack pStack) {
+        return UseAnim.BOW;
+    }
+
+    public int getUseDuration(ItemStack pStack, LivingEntity entity) {
+        return 40;
+    }
+
+    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
+        return false;
+    }
+
     @EventBusSubscriber
     public static class ServerEvents {
 
         @SubscribeEvent
         public static void onEntityTick(EntityTickEvent.Post e) {
-            if (!(e.getEntity() instanceof ItemEntity item) || e.getEntity().level().isClientSide || !(item.getItem().getItem() instanceof MagicMirrorItem)) return;
+            if (!(e.getEntity() instanceof ItemEntity item) || e.getEntity().level().isClientSide || !(item.getItem().getItem() instanceof MagicMirrorItem))
+                return;
             ServerLevel level = ((ServerLevel) item.level());
-            Vec3 p = item.position().add(0, item.getBbHeight()/2f, 0);
+            Vec3 p = item.position().add(0, item.getBbHeight() / 2f, 0);
 
             if (item.fallDistance >= 3) level.sendParticles(ParticleTypes.WHITE_ASH, p.x, p.y, p.z, 1, 0, 0, 0, 0);
             if (item.fallDistance >= 8) level.sendParticles(ParticleTypes.FLAME, p.x, p.y, p.z, 1, 0, 0, 0, 0);
@@ -45,7 +104,7 @@ public class BrokenMirrorItem extends AbstractRORItem {
 
             item.level().playSound(null, item, SoundEvents.GLASS_BREAK, SoundSource.NEUTRAL, 1f, 1f);
 
-            level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.LIGHT_BLUE_STAINED_GLASS.defaultBlockState()), p.x, p.y, p.z, 10, 0.1,0.1,0.1, 1);
+            level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.LIGHT_BLUE_STAINED_GLASS.defaultBlockState()), p.x, p.y, p.z, 10, 0.1, 0.1, 0.1, 1);
             item.setItem(ItemRegistry.BROKEN_MIRROR.toStack());
             item.getPersistentData().remove("AboutToBreak");
         }
