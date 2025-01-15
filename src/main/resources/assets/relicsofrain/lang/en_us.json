@@ -26,5 +26,8 @@
   "item.relicsofrain.platinum_horseshoe": "Platinum Horseshoe",
   "tooltip.relics.platinum_horseshoe.description": "Luck is on your side.",
   "tooltip.relics.platinum_horseshoe.ability.try_again": "Try again!",
-  "tooltip.relics.platinum_horseshoe.ability.try_again.description": "All random effects are rolled +%1$s times for a favorable outcome"
+  "tooltip.relics.platinum_horseshoe.ability.try_again.description": "All random effects are rolled +%1$s times for a favorable outcome",
+
+  "item.relicsofrain.broken_mirror": "Broken Mirror",
+  "tooltip.relics.broken_mirror.description": "...does it still work?"
 }

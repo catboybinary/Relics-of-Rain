@@ -16,5 +16,18 @@
   "item.relicsofrain.frost_relic": "Снежная реликвия",
   "tooltip.relics.frost_relic.description": "Убийство врагов окружает вас ледяным штормом.",
   "tooltip.relics.frost_relic.ability.ice_storm": "Ледяной Шторм",
-  "tooltip.relics.frost_relic.ability.ice_storm.description": "Убийство врага окружает вас ледяным штормом, который наносит %1$s%% от базового урона в секунду и замедляет врагов на 1.5 секунды. Шторм увеличивается с каждым убийством, увеличивая радиус на 2 м. Суммируется до %2$sм."
+  "tooltip.relics.frost_relic.ability.ice_storm.description": "Убийство врага окружает вас ледяным штормом, который наносит %1$s%% от базового урона в секунду и замедляет врагов на 1.5 секунды. Шторм увеличивается с каждым убийством, увеличивая радиус на 2 м. Суммируется до %2$sм.",
+
+  "item.relicsofrain.energy_drink": "Энергетик",
+  "tooltip.relics.energy_drink.description": "Увеличивает вашу скорость бега!",
+  "tooltip.relics.energy_drink.ability.speed_boost": "Ускорение",
+  "tooltip.relics.energy_drink.ability.speed_boost.description": "Скорость бега увеличена на %1$s%%",
+
+  "item.relicsofrain.platinum_horseshoe": "Платиновая подкова",
+  "tooltip.relics.platinum_horseshoe.description": "Удача на вашей стороне.",
+  "tooltip.relics.platinum_horseshoe.ability.try_again": "Попробуйте снова!",
+  "tooltip.relics.platinum_horseshoe.ability.try_again.description": "Все случайные эффекты перерасчитываются +%1$s раз для благоприятного результата",
+
+  "item.relicsofrain.broken_mirror": "Разбитое зеркало",
+  "tooltip.relics.broken_mirror.description": "...оно всё ещё работает?"
 }

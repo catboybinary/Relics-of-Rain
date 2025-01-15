@@ -3,11 +3,14 @@ package meow.binary.relicsofrain.items.relics;
 import it.hurts.sskirillss.relics.init.EffectRegistry;
 import it.hurts.sskirillss.relics.items.relics.MagicMirrorItem;
 import it.hurts.sskirillss.relics.items.relics.base.data.RelicData;
+import it.hurts.sskirillss.relics.items.relics.base.data.leveling.LevelingData;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
 import meow.binary.relicsofrain.api.ItemDamageSource;
 import meow.binary.relicsofrain.items.AbstractRORItem;
 import meow.binary.relicsofrain.registries.ItemRegistry;
 import meow.binary.relicsofrain.registries.RarityRegistry;
-import meow.binary.relicsofrain.util.EntityUtils;
+import meow.binary.relicsofrain.util.DungeonFinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,11 +18,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.StructureTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -42,6 +45,17 @@ public class BrokenMirrorItem extends AbstractRORItem {
     @Override
     public RelicData constructDefaultRelicData() {
         return RelicData.builder()
+                .leveling(LevelingData.builder()
+                        .maxLevel(0)
+                        .initialCost(0)
+                        .step(0)
+                        .build())
+                .style(StyleData.builder()
+                        .beams(BeamsData.builder()
+                                .startColor(0xFF0a70dd)
+                                .endColor(0x00002042)
+                                .build())
+                        .build())
                 .build();
     }
 
@@ -59,18 +73,15 @@ public class BrokenMirrorItem extends AbstractRORItem {
 
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
         if (!world.isClientSide() && entity instanceof ServerPlayer player) {
-            player.getCooldowns().addCooldown(stack.getItem(), 20);
             ServerLevel serverLevel = (ServerLevel) player.level();
-            BlockPos struct = serverLevel.findNearestMapStructure(
-                    StructureTags.MINESHAFT, player.blockPosition(), 1000, true
-            );
-            if (struct == null) return stack;
-            BlockPos blockPos = EntityUtils.findNearestSafePos(serverLevel, struct, 20);
-            if (blockPos == null) return stack;
-            Vec3 pos = blockPos.getBottomCenter();
-            player.teleportTo(pos.x, pos.y, pos.z);
+            if (!player.isCreative()) player.getCooldowns().addCooldown(stack.getItem(), 1200);
             player.hurt(ItemDamageSource.get(DamageTypes.MAGIC, serverLevel, null, null, stack), 3);
-            player.addEffect(new MobEffectInstance(EffectRegistry.BLEEDING, 40, 0, false, true, true));
+            player.addEffect(new MobEffectInstance(EffectRegistry.BLEEDING, 110, 1, false, true, true));
+            BlockPos blockPos = DungeonFinder.findNearestDungeon(serverLevel, player.blockPosition(), 10);
+            if (blockPos == null) return stack;
+            Vec3 pos = blockPos.getBottomCenter().add(1,0,0);
+            player.teleportTo(pos.x, pos.y, pos.z);
+            player.addEffect(new MobEffectInstance(MobEffects.UNLUCK, 36000, 1, true, false, false));
         }
         return stack;
     }
