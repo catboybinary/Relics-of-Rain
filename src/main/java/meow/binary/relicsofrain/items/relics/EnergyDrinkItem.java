@@ -6,6 +6,8 @@ import it.hurts.sskirillss.relics.items.relics.base.data.leveling.*;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemColor;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemShape;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOperation;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
 import it.hurts.sskirillss.relics.utils.MathUtils;
 import meow.binary.relicsofrain.RelicsOfRain;
 import meow.binary.relicsofrain.items.AbstractRORItem;
@@ -41,6 +43,11 @@ public class EnergyDrinkItem extends AbstractRORItem {
                                 .source(LevelingSourceData.abilityBuilder("speed_boost")
                                         .gem(GemShape.SQUARE, GemColor.GREEN)
                                         .build())
+                                .build())
+                        .build())
+                .style(StyleData.builder()
+                        .beams(BeamsData.builder()
+                                .startColor(-65281).endColor(255)
                                 .build())
                         .build())
                 .build();

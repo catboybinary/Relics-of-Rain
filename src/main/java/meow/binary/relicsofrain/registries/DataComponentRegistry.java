@@ -18,6 +18,8 @@ public class DataComponentRegistry {
                     .persistent(Codec.list(Codec.INT))
                     .build()
     );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> TICKS_IMMOBILE = DATA_COMPONENTS.register("ticks_immobile",
+            () -> DataComponentType.<Integer>builder().persistent(Codec.INT).build());
 
     public static void register(IEventBus modEventBus) {
         DATA_COMPONENTS.register(modEventBus);

@@ -9,8 +9,11 @@ import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
 import meow.binary.relicsofrain.api.ItemDamageSource;
 import meow.binary.relicsofrain.items.AbstractRORItem;
 import meow.binary.relicsofrain.registries.ItemRegistry;
+import meow.binary.relicsofrain.registries.KeyMappingRegistry;
 import meow.binary.relicsofrain.registries.RarityRegistry;
 import meow.binary.relicsofrain.util.DungeonFinder;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,6 +36,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import top.theillusivec4.curios.api.SlotContext;
 
@@ -100,6 +104,14 @@ public class BrokenMirrorItem extends AbstractRORItem {
 
     @EventBusSubscriber
     public static class ServerEvents {
+        @SubscribeEvent
+        public static void input(InputEvent.Key e) {
+            if (KeyMappingRegistry.FREEZE.consumeClick() && Minecraft.getInstance().player != null) {
+                ClientPacketListener connection = Minecraft.getInstance().getConnection();
+                if (connection == null) return;
+                connection.sendCommand("tick "+(Minecraft.getInstance().player.level().tickRateManager().isFrozen() ? "unfreeze" : "freeze"));
+            }
+        }
 
         @SubscribeEvent
         public static void onEntityTick(EntityTickEvent.Post e) {

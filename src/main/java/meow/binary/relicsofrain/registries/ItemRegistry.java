@@ -12,6 +12,7 @@ import static meow.binary.relicsofrain.RelicsOfRain.MODID;
 public class ItemRegistry {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 
+    public static final DeferredItem<BustlingFungusItem> BUSTLING_FUNGUS = ITEMS.registerItem("bustling_fungus", BustlingFungusItem::new);
     public static final DeferredItem<EnergyDrinkItem> ENERGY_DRINK = ITEMS.registerItem("energy_drink", EnergyDrinkItem::new);
     public static final DeferredItem<UkuleleItem> UKULELE = ITEMS.registerItem("ukulele", UkuleleItem::new);
     public static final DeferredItem<FrostRelicItem> FROST_RELIC = ITEMS.registerItem("frost_relic", FrostRelicItem::new);

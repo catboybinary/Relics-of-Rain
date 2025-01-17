@@ -7,17 +7,17 @@ import net.minecraft.Util;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.NeoForgeRenderTypes;
-import net.neoforged.neoforge.common.NeoForge;
 import org.joml.Vector3f;
 
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 public class RenderUtils {
-    public static final Function<ResourceLocation, RenderType> TYPE = Util.memoize(rl -> RenderType.create("icosahedron",
+    public static final ResourceLocation WHITE = ResourceLocation.fromNamespaceAndPath(RelicsOfRain.MODID, "textures/white.png");
+
+    public static final BiFunction<ResourceLocation, VertexFormat.Mode, RenderType> TYPE = Util.memoize((rl, mode) -> RenderType.create("icosahedron",
             DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
-            VertexFormat.Mode.TRIANGLES,
+            mode,
             1536, false, false,
             RenderType.CompositeState.builder()
                     .setTransparencyState(RenderStateShard.ADDITIVE_TRANSPARENCY)
@@ -34,9 +34,12 @@ public class RenderUtils {
     );
 
     public static RenderType getRenderType(ResourceLocation rl) {
-        return TYPE.apply(rl);
+        return getRenderType(rl, VertexFormat.Mode.TRIANGLES);
     }
 
+    public static RenderType getRenderType(ResourceLocation rl, VertexFormat.Mode mode) {
+        return TYPE.apply(rl, mode);
+    }
 
     public static final List<Vector3f> icosahedronVertices = List.of(
             new Vector3f(0.8506508f, 0.5257311f, 0f),            // 0

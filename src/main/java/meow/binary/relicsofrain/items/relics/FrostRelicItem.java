@@ -16,7 +16,6 @@ import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOp
 import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
 import it.hurts.sskirillss.relics.network.NetworkHandler;
-import meow.binary.relicsofrain.RelicsOfRain;
 import meow.binary.relicsofrain.api.IProcCoefficient;
 import meow.binary.relicsofrain.api.ItemDamageSource;
 import meow.binary.relicsofrain.effects.OnKillEffect;
@@ -40,7 +39,6 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -78,12 +76,12 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
                 .abilities(AbilitiesData.builder()
                         .ability(AbilityData.builder("ice_storm")
                                 .stat(StatData.builder("damage_percentage")
-                                        .initialValue(0.3d, 0.5d)
-                                        .upgradeModifier(UpgradeOperation.ADD, 0.5)
+                                        .initialValue(0.8d, 1.2d)
+                                        .upgradeModifier(UpgradeOperation.ADD, 0.26)
                                         .formatValue(value -> (int) (Math.round(value * 100) * 4))
                                         .build())
                                 .stat(StatData.builder("max_radius")
-                                        .initialValue(8, 10)
+                                        .initialValue(6, 8)
                                         .upgradeModifier(UpgradeOperation.ADD, 3)
                                         .formatValue(Math::round)
                                         .build())
@@ -102,8 +100,8 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
                         .build())
                 .style(StyleData.builder()
                         .beams(BeamsData.builder()
-                                .startColor(0xFFFF2538)
-                                .endColor(0x00FF2538)
+                                .startColor(0x770971cf)
+                                .endColor(0x0083f1f0)
                                 .build())
                         .build())
                 .build();
@@ -148,7 +146,8 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
 
         relic.spreadRelicExperience(causingEntity instanceof LivingEntity living ? living : null, stack, 1);
         stack.set(DataComponentRegistry.TIMER_LIST, timers);
-        if (causingEntity != null) NetworkHandler.sendToClientsTrackingEntityAndSelf(new S2CFrostRelicUpdate(causingEntity.getId()), causingEntity);
+        if (causingEntity != null)
+            NetworkHandler.sendToClientsTrackingEntityAndSelf(new S2CFrostRelicUpdate(causingEntity.getId()), causingEntity);
 
         return 1;
     }
@@ -158,8 +157,8 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         super.curioTick(slotContext, stack);
         List<Integer> timers = Lists.newArrayList(stack.getOrDefault(DataComponentRegistry.TIMER_LIST, new ArrayList<>()));
-        if (slotContext.entity().level().isClientSide) {
-            //if (slotContext.entity() == Minecraft.getInstance().player) Minecraft.getInstance().player.displayClientMessage(Component.literal(timers.toString()), true);
+        if (slotContext.entity().level().isClientSide
+                || slotContext.entity().level().tickRateManager().isFrozen()) {
             return;
         }
         if (!(stack.getItem() instanceof IRelicItem relic)) return;
@@ -214,18 +213,16 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
 
     public static Map<Integer, Float> lerpedRadius = new HashMap<>();
 
-    float ticker = 0f;
-
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         CurioModel model = this.getModel(stack);
         matrixStack.pushPose();
         LivingEntity entity = slotContext.entity();
         ICurioRenderer.followBodyRotations(entity, model);
-        model.prepareMobModel(entity, limbSwing*0.76f, limbSwingAmount/4f, partialTicks);
-        model.setupAnim(entity, limbSwing*0.76f, limbSwingAmount/4f, ageInTicks, netHeadYaw, headPitch);
+        model.prepareMobModel(entity, limbSwing * 0.76f, limbSwingAmount / 4f, partialTicks);
+        model.setupAnim(entity, limbSwing * 0.76f, limbSwingAmount / 4f, ageInTicks, netHeadYaw, headPitch);
         VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, RenderType.armorCutoutNoCull(this.getTexture(stack)), stack.hasFoil());
-        matrixStack.translate(0,-0.125,0);
+        matrixStack.translate(0, -0.125, 0);
         model.renderToBuffer(matrixStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY);
         matrixStack.popPose();
     }
@@ -236,10 +233,12 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
         List<Integer> timers = Lists.newArrayList(stack.getOrDefault(DataComponentRegistry.TIMER_LIST, new ArrayList<>()));
         float maxRadius = (float) relic.getStatValue(stack, "ice_storm", "max_radius");
         float radius = (float) relic.getCurrentRadius(timers, maxRadius);
-        lerpedRadius.put(id, Mth.lerp(Mth.clamp(Minecraft.getInstance().getTimer().getRealtimeDeltaTicks()/4f,0,1), lerpedRadius.getOrDefault(id, 0f), radius));
+        float tickMultiple = Mth.clamp(livingEntity.level().tickRateManager().tickrate() / 20f, 0, 1);
+
+        lerpedRadius.put(id, Mth.lerp(Mth.clamp(Minecraft.getInstance().getTimer().getRealtimeDeltaTicks() / 4f * tickMultiple, 0, 1), lerpedRadius.getOrDefault(id, 0f), radius));
         float r = lerpedRadius.getOrDefault(id, 0f);
 
-        float ii = Mth.clamp(r-0.15f, 0f, 1.35f)/1.5f;
+        float ii = Mth.clamp(r - 0.15f, 0f, 1.35f) / 1.5f;
 //        matrixStack.pushPose();
 //        matrixStack.scale(-0.05f, 0.05f, 0.05f);
 //        Minecraft.getInstance().font.drawInBatch("TEST "+(ageInTicks + Minecraft.getInstance().getTimer().getGameTimeDeltaTicks())/20f, 0, -30, !timers.isEmpty() ? 0x00FFFF : 0x707070, true, matrixStack.last().pose(), renderTypeBuffer, Font.DisplayMode.NORMAL, 0x0, light);
@@ -248,20 +247,20 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
         poseStack.pushPose();
         //Vec3 pos = livingEntity.getPosition(partialTicks);
         //poseStack.translate(pos.x, pos.y, pos.z);
-        poseStack.scale(r+ii*0.5f,r+ii*0.5f,r+ii*0.5f);
-        poseStack.mulPose(Axis.YP.rotation(r*0.5f));
-        poseStack.mulPose(Axis.YP.rotation((livingEntity.tickCount + partialTicks)/30f));
+        poseStack.scale(r + ii * 0.5f, r + ii * 0.5f, r + ii * 0.5f);
+        poseStack.mulPose(Axis.YP.rotation(r * 0.5f));
+        poseStack.mulPose(Axis.YP.rotation((livingEntity.tickCount + partialTicks) / 30f));
         if (r > 0.025) {
             RenderSystem.setShader(GameRenderer::getPositionColorTexLightmapShader);
 
             VertexConsumer builder =
                     Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(
-                            RenderUtils.getRenderType(ResourceLocation.fromNamespaceAndPath(RelicsOfRain.MODID, "textures/white.png")));
+                            RenderUtils.getRenderType(RenderUtils.WHITE));
 
             for (int i = 0; i < RenderUtils.icosahedronTriangleIndicies.length; i += 3) {
-                builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i]))    .setColor(0, (int) (30*ii), (int) (40*ii), 30).setUv(0,0).setLight(LightTexture.pack(15,15));
-                builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 1])).setColor(0, (int) (10*ii), (int) (40*ii), 30).setUv(0,1).setLight(LightTexture.pack(15,15));
-                builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 2])).setColor(0, (int) (20*ii), (int) (40*ii), 30).setUv(1,1).setLight(LightTexture.pack(15,15));
+                builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i])).setColor(0, (int) (30 * ii), (int) (40 * ii), 30).setUv(0, 0).setLight(LightTexture.pack(15, 15));
+                builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 1])).setColor(0, (int) (10 * ii), (int) (40 * ii), 30).setUv(0, 1).setLight(LightTexture.pack(15, 15));
+                builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 2])).setColor(0, (int) (20 * ii), (int) (40 * ii), 30).setUv(1, 1).setLight(LightTexture.pack(15, 15));
             }
 
         }
@@ -282,7 +281,7 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
                 Vec3 pp = livingEntity.getPosition(partialTick);
 
                 p.pushPose();
-                p.translate(pp.x-cp.x, pp.y-cp.y+livingEntity.getBbHeight()/2f, pp.z-cp.z);
+                p.translate(pp.x - cp.x, pp.y - cp.y + livingEntity.getBbHeight() / 2f, pp.z - cp.z);
                 renderIceStorm(p, livingEntity, stack, partialTick);
                 p.popPose();
             }
