@@ -11,11 +11,12 @@ import org.joml.Vector3f;
 
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public class RenderUtils {
     public static final ResourceLocation WHITE = ResourceLocation.fromNamespaceAndPath(RelicsOfRain.MODID, "textures/white.png");
 
-    public static final BiFunction<ResourceLocation, VertexFormat.Mode, RenderType> TYPE = Util.memoize((rl, mode) -> RenderType.create("icosahedron",
+    public static final BiFunction<ResourceLocation, VertexFormat.Mode, RenderType> TYPE = Util.memoize((rl, mode) -> RenderType.create("relicsofrain_icosahedron",
             DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
             mode,
             1536, false, false,
@@ -29,16 +30,38 @@ public class RenderUtils {
                     .setLightmapState(RenderStateShard.LIGHTMAP)
                     .setOverlayState(RenderStateShard.OVERLAY)
                     .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
-                    .setTextureState(new RenderStateShard.TextureStateShard(rl, false, false))
+                    .setTextureState(new RenderStateShard.TextureStateShard(rl,false,false))
                     .createCompositeState(false))
     );
 
-    public static RenderType getRenderType(ResourceLocation rl) {
-        return getRenderType(rl, VertexFormat.Mode.TRIANGLES);
+    public static final Function<ResourceLocation, RenderType> SHROOM = Util.memoize(rl -> RenderType.create("relicsofrain_shroom",
+            DefaultVertexFormat.NEW_ENTITY,
+            VertexFormat.Mode.QUADS,
+            1536, false, false,
+            RenderType.CompositeState.builder()
+                    .setTransparencyState(RenderStateShard.ADDITIVE_TRANSPARENCY)
+                    .setShaderState(RenderStateShard.POSITION_COLOR_TEX_LIGHTMAP_SHADER)
+                    .setOutputState(RenderStateShard.MAIN_TARGET)
+                    .setColorLogicState(RenderStateShard.NO_COLOR_LOGIC)
+                    .setDepthTestState(RenderStateShard.LEQUAL_DEPTH_TEST)
+                    .setCullState(RenderStateShard.CULL)
+                    .setLightmapState(RenderStateShard.LIGHTMAP)
+                    .setOverlayState(RenderStateShard.OVERLAY)
+                    .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
+                    .setTextureState(new RenderStateShard.TextureStateShard(rl,false,false))
+                    .createCompositeState(false))
+    );
+
+    public static RenderType getIcosahedronType(ResourceLocation rl) {
+        return getIcosahedronType(rl, VertexFormat.Mode.TRIANGLES);
     }
 
-    public static RenderType getRenderType(ResourceLocation rl, VertexFormat.Mode mode) {
+    public static RenderType getIcosahedronType(ResourceLocation rl, VertexFormat.Mode mode) {
         return TYPE.apply(rl, mode);
+    }
+
+    public static RenderType getShroomType(ResourceLocation rl) {
+        return SHROOM.apply(rl);
     }
 
     public static final List<Vector3f> icosahedronVertices = List.of(

@@ -28,16 +28,17 @@ public class EnergyDrinkItem extends AbstractRORItem {
         return RelicData.builder()
                 .abilities(AbilitiesData.builder()
                         .ability(AbilityData.builder("speed_boost")
+                                .maxLevel(20)
                                 .stat(StatData.builder("sprint_multiplier")
                                         .initialValue(0.1875d, 0.1918d) // 119.23% = 125% of sprinting speed
                                         .upgradeModifier(UpgradeOperation.ADD, 0.09615)
-                                        .formatValue(value -> (MathUtils.round(value * 100 * 1.3f, 1))) //sprinting speed calculation tomfoolery
+                                        .formatValue(value -> (MathUtils.round(value * 100 * 1.3f, 1))+0.1) //sprinting speed calculation tomfoolery
                                         .build())
                                 .build())
                         .build())
                 .leveling(LevelingData.builder()
                         .initialCost(100)
-                        .maxLevel(10)
+                        .maxLevel(20)
                         .step(150)
                         .sources(LevelingSourcesData.builder()
                                 .source(LevelingSourceData.abilityBuilder("speed_boost")

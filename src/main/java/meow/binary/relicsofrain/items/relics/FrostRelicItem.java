@@ -255,7 +255,7 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
 
             VertexConsumer builder =
                     Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(
-                            RenderUtils.getRenderType(RenderUtils.WHITE));
+                            RenderUtils.getIcosahedronType(RenderUtils.WHITE));
 
             for (int i = 0; i < RenderUtils.icosahedronTriangleIndicies.length; i += 3) {
                 builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i])).setColor(0, (int) (30 * ii), (int) (40 * ii), 30).setUv(0, 0).setLight(LightTexture.pack(15, 15));
