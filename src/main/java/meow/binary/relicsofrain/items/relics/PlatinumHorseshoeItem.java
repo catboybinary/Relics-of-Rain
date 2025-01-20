@@ -7,6 +7,9 @@ import it.hurts.sskirillss.relics.items.relics.base.data.leveling.AbilityData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.LevelingData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.StatData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOperation;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.TooltipData;
 import meow.binary.relicsofrain.items.AbstractRORItem;
 import meow.binary.relicsofrain.registries.ItemRegistry;
 import meow.binary.relicsofrain.registries.RarityRegistry;
@@ -37,6 +40,14 @@ public class PlatinumHorseshoeItem extends AbstractRORItem {
                         .maxLevel(5)
                         .initialCost(100)
                         .step(100)
+                        .build())
+                .style(StyleData.builder()
+                        .beams(BeamsData.builder()
+                                .build())
+                        .tooltip(TooltipData.builder()
+                                .borderBottom(0xff939c94)
+                                .borderTop(0xffbfc9bf)
+                                .build())
                         .build())
                 .build();
     }

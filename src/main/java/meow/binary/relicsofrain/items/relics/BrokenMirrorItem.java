@@ -6,6 +6,7 @@ import it.hurts.sskirillss.relics.items.relics.base.data.RelicData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.LevelingData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.TooltipData;
 import meow.binary.relicsofrain.api.ItemDamageSource;
 import meow.binary.relicsofrain.items.AbstractRORItem;
 import meow.binary.relicsofrain.registries.ItemRegistry;
@@ -56,8 +57,12 @@ public class BrokenMirrorItem extends AbstractRORItem {
                         .build())
                 .style(StyleData.builder()
                         .beams(BeamsData.builder()
-                                .startColor(0xFF0a70dd)
-                                .endColor(0x00002042)
+                                .startColor(0x0)
+                                .endColor(0x0)
+                                .build())
+                        .tooltip(TooltipData.builder()
+                                .borderBottom(0xff70cbce)
+                                .borderTop(0xff007582)
                                 .build())
                         .build())
                 .build();

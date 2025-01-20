@@ -1,8 +1,6 @@
 package meow.binary.relicsofrain.items.relics;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import it.hurts.sskirillss.relics.items.relics.base.IRelicItem;
 import it.hurts.sskirillss.relics.items.relics.base.data.RelicData;
@@ -13,6 +11,7 @@ import it.hurts.sskirillss.relics.items.relics.base.data.leveling.StatData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOperation;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.TooltipData;
 import it.hurts.sskirillss.relics.network.NetworkHandler;
 import it.hurts.sskirillss.relics.utils.MathUtils;
 import meow.binary.relicsofrain.client.models.ShroomModel;
@@ -69,6 +68,10 @@ public class BustlingFungusItem extends AbstractRORItem {
                         .beams(BeamsData.builder()
                                 .startColor(0xFF58f99f)
                                 .endColor(0x00005346)
+                                .build())
+                        .tooltip(TooltipData.builder()
+                                .borderBottom(0xff0a7a6c)
+                                .borderTop(0xff88ee88)
                                 .build())
                         .build())
                 .leveling(LevelingData.builder()
@@ -142,12 +145,13 @@ public class BustlingFungusItem extends AbstractRORItem {
         float l = 0.57735f;
 
         if (r < 0.025f) return;
-        RenderType type = RenderUtils.getIcosahedronType(RenderUtils.WHITE, VertexFormat.Mode.QUADS);
         p.pushPose();
         p.mulPose(Axis.YP.rotationDegrees(livingEntity.tickCount+partialTick));
         p.scale(r, 1f, r);
 
-        VertexConsumer builder = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(type);
+        RenderType type = RenderUtils.getIcosahedronType(RenderUtils.WHITE, VertexFormat.Mode.QUADS);
+
+        BufferBuilder builder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
         VertexConsumer buffer = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderUtils.getShroomType(RenderUtils.WHITE));
 
         int color = FastColor.ARGB32.color(100, (int)(150*ii), (int)(255*ii), (int)(110*ii));
@@ -159,6 +163,8 @@ public class BustlingFungusItem extends AbstractRORItem {
             builder.addVertex(p.last(), new Vector3f(-l, 0.0f, 1)).setColor(color).setUv(0, 0).setLight(light);
             p.mulPose(Axis.YP.rotationDegrees(60f));
         }
+        MeshData mesh = builder.build();
+        if (mesh != null) type.draw(mesh);
 
         p.popPose();
         for (int i = 0; i < 7; i++) {
@@ -175,6 +181,8 @@ public class BustlingFungusItem extends AbstractRORItem {
 
             p.mulPose(Axis.ZP.rotationDegrees(random.nextFloat(-10,10)));
             p.mulPose(Axis.XP.rotationDegrees(random.nextFloat(-10,10)));
+            float scale = random.nextFloat(0.75f,1.25f);
+            p.scale(scale,1,scale);
 
             float popHeight = smoothWave(totalTime+seed, random.nextFloat(8,13), random.nextFloat(6,9));
             float alpha = Mth.clamp(1f-popHeight*2, 0, 1);
@@ -185,13 +193,14 @@ public class BustlingFungusItem extends AbstractRORItem {
             p.translate(0, popHeight + 0.05, 0);
 
             model.renderToBuffer(p, buffer, light, OverlayTexture.NO_OVERLAY, c);
+
             p.popPose();
         }
     }
 
     @SubscribeEvent
     public static void renderLevel(RenderLevelStageEvent e) {
-        if (e.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) {
+        if (e.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
             for (int id : lerpedRadius.keySet()) {
                 if (!(e.getCamera().getEntity().level().getEntity(id) instanceof LivingEntity livingEntity)) continue;
                 ItemStack stack = EntityUtils.findEquippedCurio(livingEntity, ItemRegistry.BUSTLING_FUNGUS.get());
@@ -208,7 +217,6 @@ public class BustlingFungusItem extends AbstractRORItem {
                 p.popPose();
             }
 
-            Minecraft.getInstance().renderBuffers().bufferSource().endLastBatch();
         }
     }
 }

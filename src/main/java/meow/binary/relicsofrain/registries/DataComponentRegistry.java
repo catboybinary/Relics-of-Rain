@@ -18,8 +18,18 @@ public class DataComponentRegistry {
                     .persistent(Codec.list(Codec.INT))
                     .build()
     );
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> TICKS_IMMOBILE = DATA_COMPONENTS.register("ticks_immobile",
-            () -> DataComponentType.<Integer>builder().persistent(Codec.INT).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> TICKS_IMMOBILE = DATA_COMPONENTS.register("ticks_immobile", DataComponentRegistry::integer);
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> CURIO_TAKE = DATA_COMPONENTS.register("curio_take", DataComponentRegistry::string);
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> CURIO_GIVE = DATA_COMPONENTS.register("curio_give", DataComponentRegistry::string);
+
+    public static DataComponentType<String> string() {
+        return DataComponentType.<String>builder().persistent(Codec.STRING).build();
+    }
+
+    public static DataComponentType<Integer> integer() {
+        return DataComponentType.<Integer>builder().persistent(Codec.INT).build();
+    }
 
     public static void register(IEventBus modEventBus) {
         DATA_COMPONENTS.register(modEventBus);

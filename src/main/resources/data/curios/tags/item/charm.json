@@ -2,7 +2,9 @@
   "replace": false,
   "values": [
     "relicsofrain:bustling_fungus",
+    "relicsofrain:soldier_syringe",
     "relicsofrain:frost_relic",
-    "relicsofrain:platinum_horseshoe"
+    "relicsofrain:platinum_horseshoe",
+    "relicsofrain:unlabeled_syringe"
   ]
 }

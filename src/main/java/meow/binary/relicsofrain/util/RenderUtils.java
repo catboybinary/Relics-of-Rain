@@ -27,15 +27,14 @@ public class RenderUtils {
                     .setColorLogicState(RenderStateShard.NO_COLOR_LOGIC)
                     .setDepthTestState(RenderStateShard.LEQUAL_DEPTH_TEST)
                     .setCullState(RenderStateShard.NO_CULL)
-                    .setLightmapState(RenderStateShard.LIGHTMAP)
-                    .setOverlayState(RenderStateShard.OVERLAY)
                     .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
                     .setTextureState(new RenderStateShard.TextureStateShard(rl,false,false))
                     .createCompositeState(false))
     );
 
+
     public static final Function<ResourceLocation, RenderType> SHROOM = Util.memoize(rl -> RenderType.create("relicsofrain_shroom",
-            DefaultVertexFormat.NEW_ENTITY,
+            DefaultVertexFormat.BLOCK,
             VertexFormat.Mode.QUADS,
             1536, false, false,
             RenderType.CompositeState.builder()
@@ -45,8 +44,6 @@ public class RenderUtils {
                     .setColorLogicState(RenderStateShard.NO_COLOR_LOGIC)
                     .setDepthTestState(RenderStateShard.LEQUAL_DEPTH_TEST)
                     .setCullState(RenderStateShard.CULL)
-                    .setLightmapState(RenderStateShard.LIGHTMAP)
-                    .setOverlayState(RenderStateShard.OVERLAY)
                     .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
                     .setTextureState(new RenderStateShard.TextureStateShard(rl,false,false))
                     .createCompositeState(false))

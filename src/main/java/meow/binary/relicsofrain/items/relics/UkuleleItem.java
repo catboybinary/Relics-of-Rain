@@ -11,6 +11,9 @@ import it.hurts.sskirillss.relics.items.relics.base.data.leveling.*;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemColor;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemShape;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOperation;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.TooltipData;
 import meow.binary.relicsofrain.api.IProcCoefficient;
 import meow.binary.relicsofrain.api.ItemDamageSource;
 import meow.binary.relicsofrain.effects.OnHitEffect;
@@ -85,6 +88,14 @@ public class UkuleleItem extends AbstractRORItem implements IRenderableCurio, On
                                 .source(LevelingSourceData.abilityBuilder("lightning_chain")
                                         .gem(GemShape.SQUARE, GemColor.CYAN)
                                         .build())
+                                .build())
+                        .build())
+                .style(StyleData.builder()
+                        .beams(BeamsData.builder()
+                                .build())
+                        .tooltip(TooltipData.builder()
+                                .borderBottom(0xff4b1f16)
+                                .borderTop(0xff965740)
                                 .build())
                         .build())
                 .build();

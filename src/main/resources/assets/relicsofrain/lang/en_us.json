@@ -29,5 +29,20 @@
   "tooltip.relics.platinum_horseshoe.ability.try_again.description": "All random effects are rolled +%1$s times for a favorable outcome",
 
   "item.relicsofrain.broken_mirror": "Broken Mirror",
-  "tooltip.relics.broken_mirror.description": "...does it still work?"
+  "tooltip.relics.broken_mirror.description": "...does it still work?",
+
+  "item.relicsofrain.bustling_fungus": "Bustling Fungus",
+  "tooltip.relics.bustling_fungus.description": "Heal all nearby allies after standing still for 1 second.",
+  "tooltip.relics.bustling_fungus.ability.healing": "Healthy Fungus",
+  "tooltip.relics.bustling_fungus.ability.healing.description": "After the holder remains stationary for 1 second, the item creates a radius of 2.5m which heals any ally within for %1$s%% health every second, as long as the holder remains still",
+
+  "item.relicsofrain.unlabeled_syringe": "Unlabeled Syringe",
+  "tooltip.relics.unlabeled_syringe.description": "Should you really use it?",
+  "tooltip.relics.unlabeled_syringe.ability.mutation": "Mutation",
+  "tooltip.relics.unlabeled_syringe.ability.mutation.description": "The holder acquires +%1$s additional limbs in exchange for 1 other limb",
+
+  "item.relicsofrain.soldier_syringe": "Soldier Syringe",
+  "tooltip.relics.soldier_syringe.description": "Increase attack speed.\nDo not, and I repeat, do NOT use this on a zombie.",
+  "tooltip.relics.soldier_syringe.ability.attack_speed": "Attack Speed",
+  "tooltip.relics.soldier_syringe.ability.attack_speed.description": "The item increases attack speed by %1$s%%"
 }

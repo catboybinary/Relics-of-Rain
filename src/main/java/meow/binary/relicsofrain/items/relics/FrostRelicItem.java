@@ -1,9 +1,7 @@
 package meow.binary.relicsofrain.items.relics;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import it.hurts.sskirillss.relics.client.models.items.CurioModel;
 import it.hurts.sskirillss.relics.items.relics.base.IRelicItem;
@@ -15,6 +13,7 @@ import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemShape;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOperation;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.TooltipData;
 import it.hurts.sskirillss.relics.network.NetworkHandler;
 import meow.binary.relicsofrain.api.IProcCoefficient;
 import meow.binary.relicsofrain.api.ItemDamageSource;
@@ -31,7 +30,6 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -102,6 +100,10 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
                         .beams(BeamsData.builder()
                                 .startColor(0x770971cf)
                                 .endColor(0x0083f1f0)
+                                .build())
+                        .tooltip(TooltipData.builder()
+                                .borderBottom(0xff0971cf)
+                                .borderTop(0xff83f1f0)
                                 .build())
                         .build())
                 .build();
@@ -237,33 +239,25 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
 
         lerpedRadius.put(id, Mth.lerp(Mth.clamp(Minecraft.getInstance().getTimer().getRealtimeDeltaTicks() / 4f * tickMultiple, 0, 1), lerpedRadius.getOrDefault(id, 0f), radius));
         float r = lerpedRadius.getOrDefault(id, 0f);
-
         float ii = Mth.clamp(r - 0.15f, 0f, 1.35f) / 1.5f;
-//        matrixStack.pushPose();
-//        matrixStack.scale(-0.05f, 0.05f, 0.05f);
-//        Minecraft.getInstance().font.drawInBatch("TEST "+(ageInTicks + Minecraft.getInstance().getTimer().getGameTimeDeltaTicks())/20f, 0, -30, !timers.isEmpty() ? 0x00FFFF : 0x707070, true, matrixStack.last().pose(), renderTypeBuffer, Font.DisplayMode.NORMAL, 0x0, light);
-//        matrixStack.popPose();
+
+        if (r < 0.025) return;
 
         poseStack.pushPose();
-        //Vec3 pos = livingEntity.getPosition(partialTicks);
-        //poseStack.translate(pos.x, pos.y, pos.z);
         poseStack.scale(r + ii * 0.5f, r + ii * 0.5f, r + ii * 0.5f);
         poseStack.mulPose(Axis.YP.rotation(r * 0.5f));
         poseStack.mulPose(Axis.YP.rotation((livingEntity.tickCount + partialTicks) / 30f));
-        if (r > 0.025) {
-            RenderSystem.setShader(GameRenderer::getPositionColorTexLightmapShader);
+        RenderType type = RenderUtils.getIcosahedronType(RenderUtils.WHITE);
+        BufferBuilder builder = Tesselator.getInstance().begin(VertexFormat.Mode.TRIANGLES, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
 
-            VertexConsumer builder =
-                    Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(
-                            RenderUtils.getIcosahedronType(RenderUtils.WHITE));
-
-            for (int i = 0; i < RenderUtils.icosahedronTriangleIndicies.length; i += 3) {
-                builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i])).setColor(0, (int) (30 * ii), (int) (40 * ii), 30).setUv(0, 0).setLight(LightTexture.pack(15, 15));
-                builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 1])).setColor(0, (int) (10 * ii), (int) (40 * ii), 30).setUv(0, 1).setLight(LightTexture.pack(15, 15));
-                builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 2])).setColor(0, (int) (20 * ii), (int) (40 * ii), 30).setUv(1, 1).setLight(LightTexture.pack(15, 15));
-            }
-
+        for (int i = 0; i < RenderUtils.icosahedronTriangleIndicies.length; i += 3) {
+            builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i])).setColor(0, (int) (30 * ii), (int) (40 * ii), 30).setUv(0, 0).setLight(LightTexture.pack(15, 15));
+            builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 1])).setColor(0, (int) (10 * ii), (int) (40 * ii), 30).setUv(0, 1).setLight(LightTexture.pack(15, 15));
+            builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 2])).setColor(0, (int) (20 * ii), (int) (40 * ii), 30).setUv(1, 1).setLight(LightTexture.pack(15, 15));
         }
+        MeshData mesh = builder.build();
+        if (mesh != null) type.draw(mesh);
+
         poseStack.popPose();
     }
 
@@ -281,12 +275,10 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
                 Vec3 pp = livingEntity.getPosition(partialTick);
 
                 p.pushPose();
-                p.translate(pp.x - cp.x, pp.y - cp.y + livingEntity.getBbHeight() / 2f, pp.z - cp.z);
+                p.translate(pp.x - cp.x, pp.y - cp.y + livingEntity.getBbHeight() / 2d, pp.z - cp.z);
                 renderIceStorm(p, livingEntity, stack, partialTick);
                 p.popPose();
             }
-
-            Minecraft.getInstance().renderBuffers().bufferSource().endLastBatch();
         }
     }
 }
