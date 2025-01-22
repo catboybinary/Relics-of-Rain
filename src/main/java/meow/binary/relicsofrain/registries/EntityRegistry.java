@@ -1,5 +1,6 @@
 package meow.binary.relicsofrain.registries;
 
+import meow.binary.relicsofrain.entities.MimicCoreEntity;
 import meow.binary.relicsofrain.entities.projectiles.LightningArc;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -14,9 +15,15 @@ public class EntityRegistry {
     private static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, MODID);
 
     public static final DeferredHolder<EntityType<?>, EntityType<LightningArc>> LIGHTNING_ARC = ENTITIES.register("lightning_arc", () ->
-            EntityType.Builder.<LightningArc>of(LightningArc::new, MobCategory.MISC)
+            EntityType.Builder.of(LightningArc::new, MobCategory.MISC)
                     .sized(0.1F, 0.1F)
                     .build("lightning_arc")
+    );
+
+    public static final DeferredHolder<EntityType<?>, EntityType<MimicCoreEntity>> MIMIC_CORE = ENTITIES.register("mimic_core", () ->
+            EntityType.Builder.of(MimicCoreEntity::new, MobCategory.MISC)
+                    .sized(0.25f, 0.25f)
+                    .build("mimic_core")
     );
 
     public static void register(IEventBus bus) {
