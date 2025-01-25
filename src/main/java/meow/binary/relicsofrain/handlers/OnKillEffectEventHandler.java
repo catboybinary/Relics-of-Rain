@@ -10,7 +10,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 public class OnKillEffectEventHandler {
     public static void register() {
         BuiltInRegistries.ITEM.stream()
-                .filter(item -> item instanceof OnKillEffect onHit)
+                .filter(item -> item instanceof OnKillEffect)
                 .forEach(item -> NeoForge.EVENT_BUS.register(new Listener((OnKillEffect) item)));
     }
 
@@ -18,8 +18,12 @@ public class OnKillEffectEventHandler {
         @SubscribeEvent
         public void onLivingDamage(LivingDeathEvent event) {
             if (event.getEntity().level().isClientSide) return;
-            for (int i = 0; i < PlatinumHorseshoeItem.getRolls(event.getSource().getEntity()); i++)
-                if (onKillEffectItem.onKill(event) != 0) break;
+            int rolls = PlatinumHorseshoeItem.getRolls(event.getSource().getEntity());
+            for (int i = 0; i < Math.max(rolls, 1); i++) {
+                int killResult = onKillEffectItem.onKill(event);
+                if (i >= 1 && killResult == 1) PlatinumHorseshoeItem.addExperience(event.getSource().getEntity(), 1);
+                if (killResult != 0) break;
+            }
         }
     }
 }

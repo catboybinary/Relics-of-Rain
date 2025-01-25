@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "meow.binary.relicsofrain.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_21",
   "refmap": "relicsofrain.refmap.json",
   "mixins": [
   ],

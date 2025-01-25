@@ -13,6 +13,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import org.slf4j.Logger;
@@ -35,12 +36,11 @@ public class RelicsOfRain {
         ItemRegistry.registerEffects();
     }
 
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void keyMappings(RegisterKeyMappingsEvent event) {
-            event.register(KeyMappingRegistry.FREEZE);
+            if (!FMLLoader.isProduction()) event.register(KeyMappingRegistry.FREEZE);
         }
 
         @SubscribeEvent

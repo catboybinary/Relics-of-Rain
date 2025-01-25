@@ -51,6 +51,7 @@ public class BustlingFungusItem extends AbstractRORItem {
         super((new Properties()).rarity(Rarity.COMMON).stacksTo(1));
     }
 
+
     @Override
     public RelicData constructDefaultRelicData() {
         return RelicData.builder()

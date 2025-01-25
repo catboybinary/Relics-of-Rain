@@ -1,35 +1,42 @@
 package meow.binary.relicsofrain.entities;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.util.FakePlayer;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class MimicCoreEntity extends Entity implements TraceableEntity {
+public class MimicCoreEntity extends FakePlayer implements TraceableEntity {
     private static final EntityDataAccessor<ItemStack> DATA_ITEM = SynchedEntityData.defineId(MimicCoreEntity.class, EntityDataSerializers.ITEM_STACK);
     private UUID ownerUUID;
     private Entity cachedOwner;
 
-    public MimicCoreEntity(EntityType<?> entityType, Level level) {
-        super(entityType, level);
+    public MimicCoreEntity(ServerLevel level, GameProfile name) {
+        super(level, name);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
         builder.define(DATA_ITEM, ItemStack.EMPTY);
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
         if (compound.hasUUID("Owner")) {
             this.ownerUUID = compound.getUUID("Owner");
             this.cachedOwner = null;
@@ -43,7 +50,8 @@ public class MimicCoreEntity extends Entity implements TraceableEntity {
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
         if (this.ownerUUID != null) compound.putUUID("Owner", this.ownerUUID);
         if (!this.getItem().isEmpty()) compound.put("Item", getItem().save(this.registryAccess()));
 

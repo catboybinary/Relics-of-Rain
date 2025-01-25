@@ -37,6 +37,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import top.theillusivec4.curios.api.SlotContext;
@@ -111,6 +112,8 @@ public class BrokenMirrorItem extends AbstractRORItem {
     public static class ServerEvents {
         @SubscribeEvent
         public static void input(InputEvent.Key e) {
+            if (FMLLoader.isProduction()) return;
+
             if (KeyMappingRegistry.FREEZE.consumeClick() && Minecraft.getInstance().player != null) {
                 ClientPacketListener connection = Minecraft.getInstance().getConnection();
                 if (connection == null) return;

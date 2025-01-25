@@ -1,13 +1,17 @@
 package meow.binary.relicsofrain.registries;
 
+import com.mojang.authlib.GameProfile;
 import meow.binary.relicsofrain.entities.MimicCoreEntity;
 import meow.binary.relicsofrain.entities.projectiles.LightningArc;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.UUID;
 
 import static meow.binary.relicsofrain.RelicsOfRain.MODID;
 
@@ -21,7 +25,7 @@ public class EntityRegistry {
     );
 
     public static final DeferredHolder<EntityType<?>, EntityType<MimicCoreEntity>> MIMIC_CORE = ENTITIES.register("mimic_core", () ->
-            EntityType.Builder.of(MimicCoreEntity::new, MobCategory.MISC)
+            EntityType.Builder.<MimicCoreEntity>of((entityType, level) -> new MimicCoreEntity((ServerLevel) level, new GameProfile(UUID.randomUUID(), "Mimic")), MobCategory.MISC)
                     .sized(0.25f, 0.25f)
                     .build("mimic_core")
     );
