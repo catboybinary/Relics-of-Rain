@@ -44,7 +44,7 @@ public class EnergyDrinkItem extends AbstractRORItem {
                         .step(150)
                         .sources(LevelingSourcesData.builder()
                                 .source(LevelingSourceData.abilityBuilder("speed_boost")
-                                        .gem(GemShape.SQUARE, GemColor.GREEN)
+                                        .gem(GemShape.OVAL, GemColor.PURPLE)
                                         .build())
                                 .build())
                         .build())

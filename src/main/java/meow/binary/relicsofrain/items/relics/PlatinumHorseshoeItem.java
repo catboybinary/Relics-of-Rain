@@ -7,10 +7,9 @@ import it.hurts.sskirillss.relics.client.models.items.CurioModel;
 import it.hurts.sskirillss.relics.items.relics.base.IRelicItem;
 import it.hurts.sskirillss.relics.items.relics.base.IRenderableCurio;
 import it.hurts.sskirillss.relics.items.relics.base.data.RelicData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.AbilitiesData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.AbilityData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.LevelingData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.StatData;
+import it.hurts.sskirillss.relics.items.relics.base.data.leveling.*;
+import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemColor;
+import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemShape;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOperation;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
@@ -58,6 +57,11 @@ public class PlatinumHorseshoeItem extends AbstractRORItem implements IRenderabl
                         .maxLevel(5)
                         .initialCost(100)
                         .step(100)
+                        .sources(LevelingSourcesData.builder()
+                                .source(LevelingSourceData.abilityBuilder("try_again")
+                                        .gem(GemShape.SQUARE, GemColor.ORANGE)
+                                        .build())
+                                .build())
                         .build())
                 .style(StyleData.builder()
                         .beams(BeamsData.builder()
@@ -86,7 +90,7 @@ public class PlatinumHorseshoeItem extends AbstractRORItem implements IRenderabl
         if (!(entity instanceof LivingEntity livingEntity)) return;
         ItemStack stack = PlatinumHorseshoeItem.findStack(livingEntity);
         if (!(stack.getItem() instanceof IRelicItem relic)) return;
-        relic.spreadRelicExperience(livingEntity, stack, exp, 1);
+        relic.spreadRelicExperience(livingEntity, stack, exp);
     }
 
     @Override

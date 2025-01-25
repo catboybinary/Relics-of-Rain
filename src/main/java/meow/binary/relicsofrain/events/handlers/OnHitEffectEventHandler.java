@@ -1,6 +1,6 @@
-package meow.binary.relicsofrain.handlers;
+package meow.binary.relicsofrain.events.handlers;
 
-import meow.binary.relicsofrain.effects.OnHitEffect;
+import meow.binary.relicsofrain.api.effects.OnHitEffect;
 import meow.binary.relicsofrain.items.relics.PlatinumHorseshoeItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.bus.api.SubscribeEvent;

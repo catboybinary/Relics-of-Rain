@@ -17,7 +17,7 @@ import it.hurts.sskirillss.relics.items.relics.base.data.style.TooltipData;
 import it.hurts.sskirillss.relics.network.NetworkHandler;
 import meow.binary.relicsofrain.api.IProcCoefficient;
 import meow.binary.relicsofrain.api.ItemDamageSource;
-import meow.binary.relicsofrain.effects.OnKillEffect;
+import meow.binary.relicsofrain.api.effects.OnKillEffect;
 import meow.binary.relicsofrain.items.AbstractRORItem;
 import meow.binary.relicsofrain.network.S2CFrostRelicUpdate;
 import meow.binary.relicsofrain.registries.DataComponentRegistry;

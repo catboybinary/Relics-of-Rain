@@ -16,7 +16,7 @@ import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.TooltipData;
 import meow.binary.relicsofrain.api.IProcCoefficient;
 import meow.binary.relicsofrain.api.ItemDamageSource;
-import meow.binary.relicsofrain.effects.OnHitEffect;
+import meow.binary.relicsofrain.api.effects.OnHitEffect;
 import meow.binary.relicsofrain.entities.projectiles.LightningArc;
 import meow.binary.relicsofrain.items.AbstractRORItem;
 import meow.binary.relicsofrain.registries.EntityRegistry;

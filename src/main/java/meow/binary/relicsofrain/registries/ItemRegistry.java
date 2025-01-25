@@ -1,7 +1,7 @@
 package meow.binary.relicsofrain.registries;
 
-import meow.binary.relicsofrain.handlers.OnHitEffectEventHandler;
-import meow.binary.relicsofrain.handlers.OnKillEffectEventHandler;
+import meow.binary.relicsofrain.events.handlers.OnHitEffectEventHandler;
+import meow.binary.relicsofrain.events.handlers.OnKillEffectEventHandler;
 import meow.binary.relicsofrain.items.relics.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -20,7 +20,6 @@ public class ItemRegistry {
     public static final DeferredItem<PlatinumHorseshoeItem> PLATINUM_HORSESHOE = ITEMS.registerItem("platinum_horseshoe", PlatinumHorseshoeItem::new);
     public static final DeferredItem<BrokenMirrorItem> BROKEN_MIRROR = ITEMS.registerItem("broken_mirror", BrokenMirrorItem::new);
     public static final DeferredItem<UnlabeledSyringeItem> UNLABELED_SYRINGE = ITEMS.registerItem("unlabeled_syringe", UnlabeledSyringeItem::new);
-
 
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);

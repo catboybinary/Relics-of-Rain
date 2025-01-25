@@ -4,10 +4,9 @@ import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import it.hurts.sskirillss.relics.items.relics.base.IRelicItem;
 import it.hurts.sskirillss.relics.items.relics.base.data.RelicData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.AbilitiesData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.AbilityData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.LevelingData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.StatData;
+import it.hurts.sskirillss.relics.items.relics.base.data.leveling.*;
+import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemColor;
+import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemShape;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOperation;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
@@ -76,10 +75,18 @@ public class BustlingFungusItem extends AbstractRORItem {
                                 .build())
                         .build())
                 .leveling(LevelingData.builder()
+                        .sources(LevelingSourcesData.builder()
+                                .source(LevelingSourceData.abilityBuilder("healing")
+                                        .gem(GemShape.SQUARE, GemColor.GREEN)
+                                        .build())
+                                .build())
                         .maxLevel(20)
+                        .step(175)
+                        .initialCost(230)
                         .build())
                 .build();
     }
+
 
     public List<LivingEntity> findEligibleEntities(LivingEntity entity, double radius) {
         return entity.level().getEntitiesOfClass(LivingEntity.class, new AABB(entity.position(), entity.position()).inflate(radius), e ->
@@ -100,18 +107,19 @@ public class BustlingFungusItem extends AbstractRORItem {
         boolean isMoving = slotContext.entity().getKnownMovement().multiply(1, slotContext.entity().onGround() ? 0 : 1, 1).lengthSqr() > 0.0005;
 
         if (!isMoving) {
-            if (ticksImmobile < 20)
-                stack.set(DataComponentRegistry.TICKS_IMMOBILE, Mth.clamp(ticksImmobile + 1, 0, 20));
+            if (ticksImmobile < 20) stack.set(DataComponentRegistry.TICKS_IMMOBILE, Mth.clamp(ticksImmobile + 1, 0, 20));
         } else if (ticksImmobile > 0) stack.set(DataComponentRegistry.TICKS_IMMOBILE, 0);
 
-        if (slotContext.entity().tickCount % 5 == 0 && ticksImmobile == 20)
-            NetworkHandler.sendToClientsTrackingEntityAndSelf(new S2CBustlingFungusUpdate(slotContext.entity().getId()), slotContext.entity());
-
         if (slotContext.entity().tickCount % 5 != 0 || ticksImmobile < 20) return;
+        NetworkHandler.sendToClientsTrackingEntityAndSelf(new S2CBustlingFungusUpdate(slotContext.entity().getId()), slotContext.entity());
 
         List<LivingEntity> entities = findEligibleEntities(slotContext.entity(), RADIUS);
+        if (entities.isEmpty()) return;
+
         for (LivingEntity entity : entities) {
-            entity.heal((float) (relic.getStatValue(stack, "healing", "heal_amount") * slotContext.entity().getMaxHealth()));
+            float toHeal = (float) (relic.getStatValue(stack, "healing", "heal_amount") * slotContext.entity().getMaxHealth());
+            entity.heal(toHeal);
+            relic.spreadRelicExperience(slotContext.entity(), stack, 1);
         }
     }
 

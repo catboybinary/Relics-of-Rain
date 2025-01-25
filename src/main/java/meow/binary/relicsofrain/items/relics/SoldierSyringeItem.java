@@ -2,16 +2,16 @@ package meow.binary.relicsofrain.items.relics;
 
 import it.hurts.sskirillss.relics.items.relics.base.data.RelicAttributeModifier;
 import it.hurts.sskirillss.relics.items.relics.base.data.RelicData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.AbilitiesData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.AbilityData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.LevelingData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.StatData;
+import it.hurts.sskirillss.relics.items.relics.base.data.leveling.*;
+import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemColor;
+import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemShape;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOperation;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
 import it.hurts.sskirillss.relics.utils.MathUtils;
 import meow.binary.relicsofrain.items.AbstractRORItem;
 import meow.binary.relicsofrain.registries.ItemRegistry;
+import meow.binary.relicsofrain.util.EntityUtils;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -52,6 +52,11 @@ public class SoldierSyringeItem extends AbstractRORItem {
                         .maxLevel(20)
                         .initialCost(100)
                         .step(150)
+                        .sources(LevelingSourcesData.builder()
+                                .source(LevelingSourceData.abilityBuilder("attack_speed")
+                                        .gem(GemShape.SQUARE, GemColor.YELLOW)
+                                        .build())
+                                .build())
                         .build())
                 .style(StyleData.builder()
                         .beams(BeamsData.builder()
@@ -84,6 +89,15 @@ public class SoldierSyringeItem extends AbstractRORItem {
                         AttributeModifier.Operation.ADD_MULTIPLIED_BASE
                 ))
                 .build();
+    }
+
+    @SubscribeEvent
+    public static void damage(LivingIncomingDamageEvent e) {
+        if (e.getEntity().level().isClientSide) return;
+        if (!(e.getSource().getDirectEntity() instanceof LivingEntity livingEntity)) return;
+        ItemStack stack = EntityUtils.findEquippedCurio(livingEntity, ItemRegistry.SOLDIER_SYRINGE.get());
+        if (!((stack.getItem() instanceof SoldierSyringeItem relic))) return;
+        if (e.getAmount() >= 1) relic.spreadRelicExperience(livingEntity, stack, 1);
     }
 
     @SubscribeEvent
