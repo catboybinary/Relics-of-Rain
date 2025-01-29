@@ -48,6 +48,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
@@ -60,7 +61,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@EventBusSubscriber
 public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio, OnKillEffect, IProcCoefficient {
     private static double STARTING_RADIUS = 4d;
 
@@ -261,23 +261,27 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
         poseStack.popPose();
     }
 
-    @SubscribeEvent
-    public static void renderLevel(RenderLevelStageEvent e) {
-        if (e.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
-            for (int id : lerpedRadius.keySet()) {
-                if (!(e.getCamera().getEntity().level().getEntity(id) instanceof LivingEntity livingEntity)) continue;
-                ItemStack stack = EntityUtils.findEquippedCurio(livingEntity, ItemRegistry.FROST_RELIC.get());
-                if (!(stack.getItem() instanceof IRelicItem relic)) continue;
+    @EventBusSubscriber(Dist.CLIENT)
+    public static class ClientEvents {
+        @SubscribeEvent
+        public static void renderLevel(RenderLevelStageEvent e) {
+            if (e.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
+                for (int id : lerpedRadius.keySet()) {
+                    if (!(e.getCamera().getEntity().level().getEntity(id) instanceof LivingEntity livingEntity))
+                        continue;
+                    ItemStack stack = EntityUtils.findEquippedCurio(livingEntity, ItemRegistry.FROST_RELIC.get());
+                    if (!(stack.getItem() instanceof IRelicItem relic)) continue;
 
-                PoseStack p = e.getPoseStack();
-                Vec3 cp = e.getCamera().getPosition();
-                float partialTick = e.getPartialTick().getGameTimeDeltaPartialTick(!Minecraft.getInstance().isPaused());
-                Vec3 pp = livingEntity.getPosition(partialTick);
+                    PoseStack p = e.getPoseStack();
+                    Vec3 cp = e.getCamera().getPosition();
+                    float partialTick = e.getPartialTick().getGameTimeDeltaPartialTick(!Minecraft.getInstance().isPaused());
+                    Vec3 pp = livingEntity.getPosition(partialTick);
 
-                p.pushPose();
-                p.translate(pp.x - cp.x, pp.y - cp.y + livingEntity.getBbHeight() / 2d, pp.z - cp.z);
-                renderIceStorm(p, livingEntity, stack, partialTick);
-                p.popPose();
+                    p.pushPose();
+                    p.translate(pp.x - cp.x, pp.y - cp.y + livingEntity.getBbHeight() / 2d, pp.z - cp.z);
+                    renderIceStorm(p, livingEntity, stack, partialTick);
+                    p.popPose();
+                }
             }
         }
     }

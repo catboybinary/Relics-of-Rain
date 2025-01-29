@@ -43,7 +43,6 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import top.theillusivec4.curios.api.SlotContext;
 
 public class BrokenMirrorItem extends AbstractRORItem {
-
     public BrokenMirrorItem(Properties props) {
         super((new Properties()).rarity(RarityRegistry.LUNAR_RARITY.getValue()).stacksTo(1));
     }

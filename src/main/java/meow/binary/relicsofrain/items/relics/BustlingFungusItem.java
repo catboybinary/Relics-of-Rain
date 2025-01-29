@@ -31,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
@@ -42,7 +43,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-@EventBusSubscriber
 public class BustlingFungusItem extends AbstractRORItem {
     public static final double RADIUS = 2.5d;
 
@@ -207,25 +207,28 @@ public class BustlingFungusItem extends AbstractRORItem {
         }
     }
 
-    @SubscribeEvent
-    public static void renderLevel(RenderLevelStageEvent e) {
-        if (e.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
-            for (int id : lerpedRadius.keySet()) {
-                if (!(e.getCamera().getEntity().level().getEntity(id) instanceof LivingEntity livingEntity)) continue;
-                ItemStack stack = EntityUtils.findEquippedCurio(livingEntity, ItemRegistry.BUSTLING_FUNGUS.get());
-                if (!(stack.getItem() instanceof IRelicItem relic)) continue;
+    @EventBusSubscriber(Dist.CLIENT)
+    public static class ClientEvents {
+        @SubscribeEvent
+        public static void renderLevel(RenderLevelStageEvent e) {
+            if (e.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
+                for (int id : lerpedRadius.keySet()) {
+                    if (!(e.getCamera().getEntity().level().getEntity(id) instanceof LivingEntity livingEntity)) continue;
+                    ItemStack stack = EntityUtils.findEquippedCurio(livingEntity, ItemRegistry.BUSTLING_FUNGUS.get());
+                    if (!(stack.getItem() instanceof IRelicItem relic)) continue;
 
-                PoseStack p = e.getPoseStack();
-                Vec3 cp = e.getCamera().getPosition();
-                float partialTick = e.getPartialTick().getGameTimeDeltaPartialTick(true);
-                Vec3 pp = livingEntity.getPosition(partialTick);
+                    PoseStack p = e.getPoseStack();
+                    Vec3 cp = e.getCamera().getPosition();
+                    float partialTick = e.getPartialTick().getGameTimeDeltaPartialTick(true);
+                    Vec3 pp = livingEntity.getPosition(partialTick);
 
-                p.pushPose();
-                p.translate(pp.x - cp.x, pp.y - cp.y, pp.z - cp.z);
-                renderFungi(p, livingEntity, stack, partialTick);
-                p.popPose();
+                    p.pushPose();
+                    p.translate(pp.x - cp.x, pp.y - cp.y, pp.z - cp.z);
+                    renderFungi(p, livingEntity, stack, partialTick);
+                    p.popPose();
+                }
+
             }
-
         }
     }
 }

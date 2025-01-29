@@ -26,6 +26,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderArmEvent;
@@ -37,7 +38,6 @@ import top.theillusivec4.curios.api.SlotContext;
 import java.util.ArrayList;
 import java.util.Random;
 
-@EventBusSubscriber
 public class UnlabeledSyringeItem extends AbstractRORItem {
     public UnlabeledSyringeItem(Properties props) {
         super((new Properties()).rarity(RarityRegistry.LUNAR_RARITY.getValue()).stacksTo(1));
@@ -138,41 +138,44 @@ public class UnlabeledSyringeItem extends AbstractRORItem {
         return CuriosApi.getCuriosInventory(living).get().getCurios().get(slot).getSlots();
     }
 
-    @SubscribeEvent
-    public static void renderPlayer(RenderPlayerEvent.Pre e) {
-        if (!(EntityUtils.findEquippedCurio(e.getEntity(), ItemRegistry.UNLABELED_SYRINGE.get()).getItem() instanceof IRelicItem))
-            return;
-        PlayerModel<AbstractClientPlayer> model = e.getRenderer().getModel();
+    @EventBusSubscriber(Dist.CLIENT)
+    public static class ClientEvents {
+        @SubscribeEvent
+        public static void renderPlayer(RenderPlayerEvent.Pre e) {
+            if (!(EntityUtils.findEquippedCurio(e.getEntity(), ItemRegistry.UNLABELED_SYRINGE.get()).getItem() instanceof IRelicItem))
+                return;
+            PlayerModel<AbstractClientPlayer> model = e.getRenderer().getModel();
 
-        if (getSlots(e.getEntity(), "head") == 0) {
-            model.head.visible = false;
-            model.hat.visible = false;
+            if (getSlots(e.getEntity(), "head") == 0) {
+                model.head.visible = false;
+                model.hat.visible = false;
+            }
+            if (getSlots(e.getEntity(), "hands") == 1) {
+                model.leftArm.visible = false;
+                model.leftSleeve.visible = false;
+            } else if (getSlots(e.getEntity(), "hands") == 0) {
+                model.leftArm.visible = false;
+                model.leftSleeve.visible = false;
+                model.rightArm.visible = false;
+                model.rightSleeve.visible = false;
+            }
+            if (getSlots(e.getEntity(), "feet") == 1) {
+                model.leftLeg.visible = false;
+                model.leftPants.visible = false;
+            } else if (getSlots(e.getEntity(), "feet") == 0) {
+                model.leftLeg.visible = false;
+                model.leftPants.visible = false;
+                model.rightLeg.visible = false;
+                model.rightPants.visible = false;
+                e.getPoseStack().translate(0, model.crouching ? -0.5 : -0.7, 0);
+            }
         }
-        if (getSlots(e.getEntity(), "hands") == 1) {
-            model.leftArm.visible = false;
-            model.leftSleeve.visible = false;
-        } else if (getSlots(e.getEntity(), "hands") == 0) {
-            model.leftArm.visible = false;
-            model.leftSleeve.visible = false;
-            model.rightArm.visible = false;
-            model.rightSleeve.visible = false;
-        }
-        if (getSlots(e.getEntity(), "feet") == 1) {
-            model.leftLeg.visible = false;
-            model.leftPants.visible = false;
-        } else if (getSlots(e.getEntity(), "feet") == 0) {
-            model.leftLeg.visible = false;
-            model.leftPants.visible = false;
-            model.rightLeg.visible = false;
-            model.rightPants.visible = false;
-            e.getPoseStack().translate(0, model.crouching ? -0.5 : -0.7, 0);
-        }
-    }
 
-    @SubscribeEvent
-    public static void renderHand(RenderArmEvent e) {
-        if (!(EntityUtils.findEquippedCurio(Minecraft.getInstance().player, ItemRegistry.UNLABELED_SYRINGE.get()).getItem() instanceof IRelicItem))
-            return;
-        if (getSlots(Minecraft.getInstance().player, "hands") == 0) e.setCanceled(true);
+        @SubscribeEvent
+        public static void renderHand(RenderArmEvent e) {
+            if (!(EntityUtils.findEquippedCurio(Minecraft.getInstance().player, ItemRegistry.UNLABELED_SYRINGE.get()).getItem() instanceof IRelicItem))
+                return;
+            if (getSlots(Minecraft.getInstance().player, "hands") == 0) e.setCanceled(true);
+        }
     }
 }
