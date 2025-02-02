@@ -46,7 +46,7 @@ public class RelicsOfRain {
         @SubscribeEvent
         public static void entityRenderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerEntityRenderer(EntityRegistry.LIGHTNING_ARC.get(), NullRenderer::new);
-            event.registerEntityRenderer(EntityRegistry.MIMIC_CORE.get(), NullRenderer::new);
+//            event.registerEntityRenderer(EntityRegistry.MIMIC_CORE.get(), NullRenderer::new);
         }
     }
 }
