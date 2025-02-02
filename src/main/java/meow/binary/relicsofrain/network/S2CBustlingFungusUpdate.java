@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import meow.binary.relicsofrain.RelicsOfRain;
-import meow.binary.relicsofrain.items.relics.BustlingFungusItem;
+import meow.binary.relicsofrain.item.relic.BustlingFungusItem;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

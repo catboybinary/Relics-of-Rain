@@ -2,10 +2,10 @@ package meow.binary.relicsofrain;
 
 import com.mojang.logging.LogUtils;
 import it.hurts.sskirillss.relics.client.renderer.entities.NullRenderer;
-import meow.binary.relicsofrain.registries.DataComponentRegistry;
-import meow.binary.relicsofrain.registries.EntityRegistry;
-import meow.binary.relicsofrain.registries.ItemRegistry;
-import meow.binary.relicsofrain.registries.KeyMappingRegistry;
+import meow.binary.relicsofrain.registry.DataComponentRegistry;
+import meow.binary.relicsofrain.registry.EntityRegistry;
+import meow.binary.relicsofrain.registry.ItemRegistry;
+import meow.binary.relicsofrain.registry.KeyMappingRegistry;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
