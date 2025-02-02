@@ -2,8 +2,8 @@
   "replace": false,
   "values": [
     "#c:is_mountain",
-    "#c:is_dry",
-    "#c:is_sparse_vegetation",
+    "#c:is_dry/overworld",
+    "#c:is_sparse_vegetation/overworld",
     "#c:is_hill",
     "#c:is_forest",
     "#c:is_plains",
