@@ -115,7 +115,7 @@ public class UkuleleItem extends AbstractRORItem implements IRenderableCurio, On
         Entity source = e.getSource().getDirectEntity();
         LivingEntity target = e.getEntity();
         if (EntityUtils.isAlliedTo(causingEntity, target)) return -1;
-        if (e.getSource() instanceof ItemDamageSource proc && proc.itemUsed.getItem() instanceof UkuleleItem) return -1;
+        if (e.getSource() instanceof ItemDamageSource proc && proc.getItemUsed().getItem() instanceof UkuleleItem) return -1;
 
         ItemStack stack = EntityUtils.findEquippedCurio(causingEntity, ItemRegistry.UKULELE.get());
         if (!(stack.getItem() instanceof IRelicItem relic)) return -1;

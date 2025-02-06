@@ -1,5 +1,7 @@
 package meow.binary.relicsofrain.api;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -17,7 +19,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemDamageSource extends DamageSource {
-    public final ItemStack itemUsed;
+    @Getter
+    @Setter
+    private ItemStack itemUsed;
 
     public ItemDamageSource(Holder<DamageType> type, @Nullable Entity directEntity, @Nullable Entity causingEntity, @Nullable Vec3 damageSourcePosition, @Nullable ItemStack itemUsed) {
         super(type, directEntity, causingEntity, damageSourcePosition);
