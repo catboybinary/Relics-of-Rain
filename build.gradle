@@ -131,7 +131,7 @@ dependencies {
             def modreference = "lib:$modartifact:$modversion"
 
             dependencies {
-                implementation(project.dependencies.create(modreference) {
+                runtimeOnly(project.dependencies.create(modreference) {
                     transitive = false
                 })
             }
