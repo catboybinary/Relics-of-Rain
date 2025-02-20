@@ -13,6 +13,7 @@ repositories {
     mavenLocal()
     flatDir {
         dirs 'libs'
+        dirs 'devlibs'
     }
     maven {
         name = "OctoStudios"
@@ -74,7 +75,7 @@ neoForge {
         }
 
         data {
-                data()
+            data()
 
             // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
             // gameDirectory = project.file('run-data')
@@ -115,45 +116,51 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 
 dependencies {
-    if (file("libs").isDirectory()) {
-        file("libs").eachFile { file ->
-            def splitPos = file.name.lastIndexOf("-")
-
-            if (file.name != "desktop.ini") {
-                println file.name
-
-                def modartifact = file.name.substring(0, splitPos)
-                def modversion = file.name.substring(splitPos + 1, file.name.length() - 4)
-                def modreference = "lib:$modartifact:$modversion"
-
-                dependencies {
-                    implementation (project.dependencies.create(modreference) {
-                        transitive = false
-                    })
-                }
-            }
-        }
-    } else file("libs").mkdir()
-
     if (file("devlibs").isDirectory()) {
         file("devlibs").eachFile { file ->
             def splitPos = file.name.lastIndexOf("-")
 
-            if (file.name != "desktop.ini") {
-                println file.name
-
-                def modartifact = file.name.substring(0, splitPos)
-                def modversion = file.name.substring(splitPos + 1, file.name.length() - 4)
-                def modreference = "lib:$modartifact:$modversion"
-
-                dependencies {
-                    implementation (project.dependencies.create(modreference) {
-                        transitive = false
-                    })
-                }
+            if (file.name == "desktop.ini") {
+                return
             }
+
+            println file.name
+
+            def modartifact = file.name.substring(0, splitPos)
+            def modversion = file.name.substring(splitPos + 1, file.name.length() - 4)
+            def modreference = "lib:$modartifact:$modversion"
+
+            dependencies {
+                implementation(project.dependencies.create(modreference) {
+                    transitive = false
+                })
+            }
+
         }
     }
+
+    if (file("libs").isDirectory()) {
+        file("libs").eachFile { file ->
+            def splitPos = file.name.lastIndexOf("-")
+
+            if (file.name == "desktop.ini") {
+                return
+            }
+
+            println file.name
+
+            def modartifact = file.name.substring(0, splitPos)
+            def modversion = file.name.substring(splitPos + 1, file.name.length() - 4)
+            def modreference = "lib:$modartifact:$modversion"
+
+            dependencies {
+                implementation(project.dependencies.create(modreference) {
+                    transitive = false
+                })
+            }
+
+        }
+    } else file("libs").mkdir()
 
     implementation "dev.architectury:architectury-neoforge:13.0.6"
     implementation "it.hurts.octostudios.octolib:octolib-neoforge:0.5.0.1+1.21"
