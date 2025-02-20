@@ -135,6 +135,26 @@ dependencies {
         }
     } else file("libs").mkdir()
 
+    if (file("devlibs").isDirectory()) {
+        file("devlibs").eachFile { file ->
+            def splitPos = file.name.lastIndexOf("-")
+
+            if (file.name != "desktop.ini") {
+                println file.name
+
+                def modartifact = file.name.substring(0, splitPos)
+                def modversion = file.name.substring(splitPos + 1, file.name.length() - 4)
+                def modreference = "lib:$modartifact:$modversion"
+
+                dependencies {
+                    implementation (project.dependencies.create(modreference) {
+                        transitive = false
+                    })
+                }
+            }
+        }
+    }
+
     implementation "dev.architectury:architectury-neoforge:13.0.6"
     implementation "it.hurts.octostudios.octolib:octolib-neoforge:0.5.0.1+1.21"
     //implementation "curse.maven:relics-mod-445274:6029261"
