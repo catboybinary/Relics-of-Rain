@@ -5,7 +5,7 @@
       "name": "RELICSOFRAIN_UNCOMMON",
       "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
       "parameters": {
-        "class": "meow/binary/relicsofrain/registries/RarityRegistry",
+        "class": "meow/binary/relicsofrain/registry/RarityRegistry",
         "field": "UNCOMMON_RARITY"
       }
     },
@@ -14,7 +14,7 @@
       "name": "RELICSOFRAIN_LEGENDARY",
       "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
       "parameters": {
-        "class": "meow/binary/relicsofrain/registries/RarityRegistry",
+        "class": "meow/binary/relicsofrain/registry/RarityRegistry",
         "field": "LEGENDARY_RARITY"
       }
     },
@@ -23,7 +23,7 @@
       "name": "RELICSOFRAIN_LUNAR",
       "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
       "parameters": {
-        "class": "meow/binary/relicsofrain/registries/RarityRegistry",
+        "class": "meow/binary/relicsofrain/registry/RarityRegistry",
         "field": "LUNAR_RARITY"
       }
     }

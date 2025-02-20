@@ -251,12 +251,24 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
         BufferBuilder builder = Tesselator.getInstance().begin(VertexFormat.Mode.TRIANGLES, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
 
         for (int i = 0; i < RenderUtils.icosahedronTriangleIndicies.length; i += 3) {
-            builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i])).setColor(0, (int) (30 * ii), (int) (40 * ii), 30).setUv(0, 0).setLight(LightTexture.pack(15, 15));
-            builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 1])).setColor(0, (int) (10 * ii), (int) (40 * ii), 30).setUv(0, 1).setLight(LightTexture.pack(15, 15));
-            builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 2])).setColor(0, (int) (20 * ii), (int) (40 * ii), 30).setUv(1, 1).setLight(LightTexture.pack(15, 15));
+            builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i]))
+                    .setColor(0, (int) (30 * ii), (int) (40 * ii), 255)
+                    .setUv(0, 0)
+                    .setLight(LightTexture.pack(15, 15));
+            builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 1]))
+                    .setColor(0, (int) (10 * ii), (int) (40 * ii), 255)
+                    .setUv(0, 1)
+                    .setLight(LightTexture.pack(15, 15));
+            builder.addVertex(poseStack.last(), RenderUtils.icosahedronVertices.get(RenderUtils.icosahedronTriangleIndicies[i + 2]))
+                    .setColor(0, (int) (20 * ii), (int) (40 * ii), 255)
+                    .setUv(1, 1)
+                    .setLight(LightTexture.pack(15, 15));
         }
+
         MeshData mesh = builder.build();
-        if (mesh != null) type.draw(mesh);
+        if (mesh != null) {
+            type.draw(mesh);
+        }
 
         poseStack.popPose();
     }
@@ -265,23 +277,27 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
     public static class ClientEvents {
         @SubscribeEvent
         public static void renderLevel(RenderLevelStageEvent e) {
-            if (e.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
-                for (int id : lerpedRadius.keySet()) {
-                    if (!(e.getCamera().getEntity().level().getEntity(id) instanceof LivingEntity livingEntity))
-                        continue;
-                    ItemStack stack = EntityUtils.findEquippedCurio(livingEntity, ItemRegistry.FROST_RELIC.get());
-                    if (!(stack.getItem() instanceof IRelicItem relic)) continue;
+            if (e.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
+                return;
+            }
 
-                    PoseStack p = e.getPoseStack();
-                    Vec3 cp = e.getCamera().getPosition();
-                    float partialTick = e.getPartialTick().getGameTimeDeltaPartialTick(!Minecraft.getInstance().isPaused());
-                    Vec3 pp = livingEntity.getPosition(partialTick);
+            for (int id : lerpedRadius.keySet()) {
+                Entity entity = e.getCamera().getEntity().level().getEntity(id);
+                ItemStack stack = EntityUtils.findEquippedCurio(entity, ItemRegistry.FROST_RELIC.get());
 
-                    p.pushPose();
-                    p.translate(pp.x - cp.x, pp.y - cp.y + livingEntity.getBbHeight() / 2d, pp.z - cp.z);
-                    renderIceStorm(p, livingEntity, stack, partialTick);
-                    p.popPose();
-                }
+                if (!(entity instanceof LivingEntity livingEntity)
+                        || !(stack.getItem() instanceof IRelicItem relic)
+                ) continue;
+
+                PoseStack p = e.getPoseStack();
+                Vec3 cp = e.getCamera().getPosition();
+                float partialTick = e.getPartialTick().getGameTimeDeltaPartialTick(!Minecraft.getInstance().isPaused());
+                Vec3 pp = livingEntity.getPosition(partialTick);
+
+                p.pushPose();
+                p.translate(pp.x - cp.x, pp.y - cp.y + livingEntity.getBbHeight() / 2d, pp.z - cp.z);
+                renderIceStorm(p, livingEntity, stack, partialTick);
+                p.popPose();
             }
         }
     }
