@@ -14,6 +14,7 @@ import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOp
 import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.TooltipData;
+import it.hurts.sskirillss.relics.utils.EntityUtils;
 import meow.binary.relicsofrain.api.IProcCoefficient;
 import meow.binary.relicsofrain.api.ItemDamageSource;
 import meow.binary.relicsofrain.api.effect.OnHitEffect;
@@ -22,7 +23,6 @@ import meow.binary.relicsofrain.item.AbstractRORItem;
 import meow.binary.relicsofrain.registry.EntityRegistry;
 import meow.binary.relicsofrain.registry.ItemRegistry;
 import meow.binary.relicsofrain.registry.RarityRegistry;
-import meow.binary.relicsofrain.util.EntityUtils;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.PartPose;

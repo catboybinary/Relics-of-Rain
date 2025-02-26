@@ -12,11 +12,11 @@ import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOp
 import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.TooltipData;
+import it.hurts.sskirillss.relics.utils.EntityUtils;
 import meow.binary.relicsofrain.item.AbstractRORItem;
 import meow.binary.relicsofrain.registry.DataComponentRegistry;
 import meow.binary.relicsofrain.registry.ItemRegistry;
 import meow.binary.relicsofrain.registry.RarityRegistry;
-import meow.binary.relicsofrain.util.EntityUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
