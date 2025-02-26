@@ -53,6 +53,11 @@ public class CrowbarItem extends SwordItem implements IRelicItem, ICreativeTabCo
     }
 
     @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return oldStack.getItem() != newStack.getItem() || slotChanged;
+    }
+
+    @Override
     public RelicData constructDefaultRelicData() {
         return RelicData.builder()
                 .abilities(AbilitiesData.builder()
