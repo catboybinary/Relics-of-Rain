@@ -19,7 +19,7 @@ import meow.binary.relicsofrain.api.IProcCoefficient;
 import meow.binary.relicsofrain.api.ItemDamageSource;
 import meow.binary.relicsofrain.api.effect.OnKillEffect;
 import meow.binary.relicsofrain.item.AbstractRORItem;
-import meow.binary.relicsofrain.network.S2CFrostRelicUpdate;
+import meow.binary.relicsofrain.network.FrostRelicUpdatePacket;
 import meow.binary.relicsofrain.registry.DataComponentRegistry;
 import meow.binary.relicsofrain.registry.ItemRegistry;
 import meow.binary.relicsofrain.registry.RarityRegistry;
@@ -149,7 +149,7 @@ public class FrostRelicItem extends AbstractRORItem implements IRenderableCurio,
         relic.spreadRelicExperience(causingEntity instanceof LivingEntity living ? living : null, stack, 1);
         stack.set(DataComponentRegistry.TIMER_LIST, timers);
         if (causingEntity != null)
-            NetworkHandler.sendToClientsTrackingEntityAndSelf(new S2CFrostRelicUpdate(causingEntity.getId()), causingEntity);
+            NetworkHandler.sendToClientsTrackingEntityAndSelf(new FrostRelicUpdatePacket(causingEntity.getId()), causingEntity);
 
         return 1;
     }

@@ -40,9 +40,9 @@
   "tooltip.relics.broken_mirror.description": "...does it still work?",
 
   "item.relicsofrain.bustling_fungus": "Bustling Fungus",
-  "tooltip.relics.bustling_fungus.description": "Heal all nearby allies after standing still for 1 second.",
+  "tooltip.relics.bustling_fungus.description": "Heal all nearby allies after standing still for 1.5 seconds.",
   "tooltip.relics.bustling_fungus.ability.healing": "Healthy Fungus",
-  "tooltip.relics.bustling_fungus.ability.healing.description": "After the holder remains stationary for 1 second, the item creates a radius of 2.5m which heals any ally within for %1$s%% health every second, as long as the holder remains still",
+  "tooltip.relics.bustling_fungus.ability.healing.description": "After the holder remains stationary for 1.5 seconds, the item creates a radius of 2.5m which heals any ally within for %1$s%% health every second, as long as the holder remains still",
   "tooltip.relics.bustling_fungus.leveling_source.healing.title": "Healthy Fungus",
   "tooltip.relics.bustling_fungus.leveling_source.healing.description": "This relic receives 1 experience point for every healing tick",
 
@@ -56,5 +56,28 @@
   "tooltip.relics.soldier_syringe.ability.attack_speed": "Attack Speed",
   "tooltip.relics.soldier_syringe.ability.attack_speed.description": "The item increases attack speed by %1$s%%",
   "tooltip.relics.soldier_syringe.leveling_source.attack_speed.title": "Attack Speed",
-  "tooltip.relics.soldier_syringe.leveling_source.attack_speed.description": "This relic receives 1 experience point for every hit"
+  "tooltip.relics.soldier_syringe.leveling_source.attack_speed.description": "This relic receives 1 experience point for every hit",
+
+  "item.relicsofrain.wax_quail": "Wax Quail",
+  "tooltip.relics.wax_quail.description": "Jumping while sprinting boosts you forward.",
+  "tooltip.relics.wax_quail.ability.woah": "Woah!",
+  "tooltip.relics.wax_quail.ability.woah.description": "The item grants an immediate %1$sx boost forward whenever the holder jumps while sprinting",
+  "tooltip.relics.wax_quail.leveling_source.woah.title": "Woah!",
+  "tooltip.relics.wax_quail.leveling_source.woah.description": "This relic receives 1 experience point for every boosted jump",
+
+  "item.relicsofrain.katana_trinket": "Katana Trinket",
+  "tooltip.relics.katana_trinket.description": "Great addition to your backpack!",
+  "tooltip.relics.katana_trinket.ability.agility": "Agility",
+  "tooltip.relics.katana_trinket.ability.agility.description": "Allows the player to sprint in any direction and not slow down after attacks",
+
+  "item.relicsofrain.crowbar": "Crowbar",
+  "tooltip.relics.crowbar.description": "Deal bonus damage to enemies above 90% health.",
+  "tooltip.relics.crowbar.ability.heavy_hitter": "Heavy Hitter",
+  "tooltip.relics.crowbar.ability.heavy_hitter.description": "When the holder attacks an enemy that has more than 90% of its health remaining, they deal %1$s%% more damage",
+  "tooltip.relics.crowbar.ability.pry_it_open": "Pry It Open!",
+  "tooltip.relics.crowbar.ability.pry_it_open.description": "This item can instabreak planks",
+  "tooltip.relics.crowbar.leveling_source.heavy_hitter.title": "Heavy Hitter",
+  "tooltip.relics.crowbar.leveling_source.heavy_hitter.description": "This relic receives 1 experience point for every increased hit",
+  "tooltip.relicsofrain.crowbar.damage_tip": "When enemy's health above %1$s%%:",
+  "tooltip.relicsofrain.crowbar.damage": " +%1$s%% Attack Damage"
 }

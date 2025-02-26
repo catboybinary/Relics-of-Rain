@@ -5,11 +5,15 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "relicsofrain.refmap.json",
   "mixins": [
+    "PlayerMixin"
   ],
   "client": [
     "EntityEffectAccessor",
+    "InputMixin",
     "ItemInHandRendererMixin",
     "ItemRendererMixin",
+    "LivingEntityMixin",
+    "LocalPlayerMixin",
     "MinecraftMixin",
     "OutlineBufferSourceAccessor",
     "SimpleBakedModelMixin"

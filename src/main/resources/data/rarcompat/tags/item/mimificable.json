@@ -1,9 +1,12 @@
 {
-  "replace": false,
   "values": [
-    "#relicsofrain:common",
-    "#relicsofrain:uncommon",
-    "#relicsofrain:legendary",
-    "#relicsofrain:lunar"
+    "relicsofrain:bustling_fungus",
+    "relicsofrain:soldier_syringe",
+    "relicsofrain:energy_drink",
+    "relicsofrain:ukulele",
+    "relicsofrain:frost_relic",
+    "relicsofrain:platinum_horseshoe",
+    "relicsofrain:unlabeled_syringe",
+    "relicsofrain:broken_mirror"
   ]
 }

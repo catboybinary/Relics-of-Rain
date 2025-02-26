@@ -14,14 +14,14 @@ import org.jetbrains.annotations.NotNull;
 
 @Data
 @AllArgsConstructor
-public class S2CBustlingFungusUpdate implements CustomPacketPayload {
+public class BustlingFungusUpdatePacket implements CustomPacketPayload {
     private int id;
 
-    public static final Type<S2CBustlingFungusUpdate> TYPE = new Type<>(
+    public static final Type<BustlingFungusUpdatePacket> TYPE = new Type<>(
             ResourceLocation.fromNamespaceAndPath(RelicsOfRain.MODID, "update_bustling_fungus")
     );
-    public static final StreamCodec<ByteBuf, S2CBustlingFungusUpdate> STREAM_CODEC =
-            StreamCodec.composite(ByteBufCodecs.INT, S2CBustlingFungusUpdate::getId, S2CBustlingFungusUpdate::new);
+    public static final StreamCodec<ByteBuf, BustlingFungusUpdatePacket> STREAM_CODEC =
+            StreamCodec.composite(ByteBufCodecs.INT, BustlingFungusUpdatePacket::getId, BustlingFungusUpdatePacket::new);
 
     public void handle(IPayloadContext ctx) {
         ctx.enqueueWork(() -> {

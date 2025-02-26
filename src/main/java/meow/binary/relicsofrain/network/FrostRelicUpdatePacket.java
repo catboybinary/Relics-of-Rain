@@ -14,14 +14,14 @@ import org.jetbrains.annotations.NotNull;
 
 @Data
 @AllArgsConstructor
-public class S2CFrostRelicUpdate implements CustomPacketPayload {
+public class FrostRelicUpdatePacket implements CustomPacketPayload {
     private int id;
 
-    public static final CustomPacketPayload.Type<S2CFrostRelicUpdate> TYPE = new CustomPacketPayload.Type<>(
+    public static final CustomPacketPayload.Type<FrostRelicUpdatePacket> TYPE = new CustomPacketPayload.Type<>(
             ResourceLocation.fromNamespaceAndPath(RelicsOfRain.MODID, "update_frost_relic")
     );
-    public static final StreamCodec<ByteBuf, S2CFrostRelicUpdate> STREAM_CODEC =
-            StreamCodec.composite(ByteBufCodecs.INT, S2CFrostRelicUpdate::getId, S2CFrostRelicUpdate::new);
+    public static final StreamCodec<ByteBuf, FrostRelicUpdatePacket> STREAM_CODEC =
+            StreamCodec.composite(ByteBufCodecs.INT, FrostRelicUpdatePacket::getId, FrostRelicUpdatePacket::new);
 
     public void handle(IPayloadContext ctx) {
         ctx.enqueueWork(() -> {

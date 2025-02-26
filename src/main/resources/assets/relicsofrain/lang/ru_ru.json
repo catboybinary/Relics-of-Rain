@@ -4,30 +4,80 @@
   "death.attack.relicsofrain.electricity.player": "%1$s был убит электричеством пока дрался с %2$s",
   "death.attack.relicsofrain.electricity.item": "%1$s получил разряд от %2$s и его верного %3$s",
 
-  "entity.relicsofrain.lightning_arc": "Электрическая Цепь",
+  "entity.relicsofrain.lightning_arc": "Электрическая цепь",
 
   "itemGroup.relicsofrain": "Relics of Rain",
 
   "item.relicsofrain.ukulele": "Укулеле",
   "tooltip.relics.ukulele.description": "...и его музыка была электрической.",
-  "tooltip.relics.ukulele.ability.lightning_chain": "Электрическая Цепь",
-  "tooltip.relics.ukulele.ability.lightning_chain.description": "При ударе существует вероятность %1$s%% вызвать цепную молнию, которая поражает до %2$s других целей в радиусе %3$sм, нанося каждой из них %4$s%% от общего урона.",
+  "tooltip.relics.ukulele.ability.lightning_chain": "Электрическая цепь",
+  "tooltip.relics.ukulele.ability.lightning_chain.description": "При ударе существует вероятность %1$s%% вызвать цепную молнию, которая поражает до %2$s других целей в радиусе %3$sм, нанося каждой из них %4$s%% от общего урона",
+  "tooltip.relics.ukulele.leveling_source.lightning_chain.title": "Электрическая цепь",
+  "tooltip.relics.ukulele.leveling_source.lightning_chain.description": "Эта реликвия получает 1 очко опыта за каждую созданную цепную молнию",
 
   "item.relicsofrain.frost_relic": "Снежная реликвия",
-  "tooltip.relics.frost_relic.description": "Убийство врагов окружает вас ледяным штормом.",
-  "tooltip.relics.frost_relic.ability.ice_storm": "Ледяной Шторм",
-  "tooltip.relics.frost_relic.ability.ice_storm.description": "Убийство врага окружает вас ледяным штормом, который наносит %1$s%% от базового урона в секунду и замедляет врагов на 1.5 секунды. Шторм увеличивается с каждым убийством, увеличивая радиус на 2 м. Суммируется до %2$sм.",
+  "tooltip.relics.frost_relic.description": "Убийство врагов окружает вас ледяным штормом",
+  "tooltip.relics.frost_relic.ability.ice_storm": "Ледяной шторм",
+  "tooltip.relics.frost_relic.ability.ice_storm.description": "Убийство врага окружает вас ледяным штормом, который наносит %1$s%% от базового урона в секунду и замедляет врагов на 1.5 секунды. Шторм увеличивается с каждым убийством, увеличивая радиус на 2 м. Суммируется до %2$sм",
+  "tooltip.relics.frost_relic.leveling_source.ice_storm.title": "Ледяной шторм",
+  "tooltip.relics.frost_relic.leveling_source.ice_storm.description": "Эта реликвия получает 1 очко опыта за каждый срабатывающий эффект способности",
 
   "item.relicsofrain.energy_drink": "Энергетик",
   "tooltip.relics.energy_drink.description": "Увеличивает вашу скорость бега!",
   "tooltip.relics.energy_drink.ability.speed_boost": "Ускорение",
   "tooltip.relics.energy_drink.ability.speed_boost.description": "Скорость бега увеличена на %1$s%%",
+  "tooltip.relics.energy_drink.leveling_source.speed_boost.title": "Ускорение",
+  "tooltip.relics.energy_drink.leveling_source.speed_boost.description": "Эта реликвия получает 1 очко опыта за каждую секунду спринта",
 
   "item.relicsofrain.platinum_horseshoe": "Платиновая подкова",
-  "tooltip.relics.platinum_horseshoe.description": "Удача на вашей стороне.",
+  "tooltip.relics.platinum_horseshoe.description": "Удача на вашей стороне",
   "tooltip.relics.platinum_horseshoe.ability.try_again": "Попробуйте снова!",
   "tooltip.relics.platinum_horseshoe.ability.try_again.description": "Все случайные эффекты перерасчитываются +%1$s раз для благоприятного результата",
+  "tooltip.relics.platinum_horseshoe.leveling_source.try_again.title": "Попробуйте снова!",
+  "tooltip.relics.platinum_horseshoe.leveling_source.try_again.description": "Эта реликвия получает 1 очко опыта за каждый успешный реролл, сделанный предметом",
 
   "item.relicsofrain.broken_mirror": "Разбитое зеркало",
-  "tooltip.relics.broken_mirror.description": "...оно всё ещё работает?"
+  "tooltip.relics.broken_mirror.description": "...оно всё ещё работает?",
+
+  "item.relicsofrain.bustling_fungus": "Шумные грибы",
+  "tooltip.relics.bustling_fungus.description": "Исцеляет всех союзников поблизости после 1,5 секунд неподвижности",
+  "tooltip.relics.bustling_fungus.ability.healing": "Целебный гриб",
+  "tooltip.relics.bustling_fungus.ability.healing.description": "После того как носитель остаётся неподвижным в течение 1,5 секунд, предмет создаёт зону радиусом 2,5 м, исцеляющую всех союзников внутри на %1$s%% здоровья каждую секунду, пока носитель остаётся на месте",
+  "tooltip.relics.bustling_fungus.leveling_source.healing.title": "Целебный гриб",
+  "tooltip.relics.bustling_fungus.leveling_source.healing.description": "Эта реликвия получает 1 очко опыта за каждый тик исцеления",
+
+  "item.relicsofrain.unlabeled_syringe": "Неизвестный шприц",
+  "tooltip.relics.unlabeled_syringe.description": "Стоит ли тебе это использовать?",
+  "tooltip.relics.unlabeled_syringe.ability.mutation": "Мутация",
+  "tooltip.relics.unlabeled_syringe.ability.mutation.description": "Носитель получает +%1$s дополнительных конечностей в обмен на одну другую конечность",
+
+  "item.relicsofrain.soldier_syringe": "Солдатский шприц",
+  "tooltip.relics.soldier_syringe.description": "Увеличивает скорость атаки.\nНе используй это на зомби. Повторяю, НЕ используй это на зомби",
+  "tooltip.relics.soldier_syringe.ability.attack_speed": "Скорость атаки",
+  "tooltip.relics.soldier_syringe.ability.attack_speed.description": "Предмет увеличивает скорость атаки на %1$s%%",
+  "tooltip.relics.soldier_syringe.leveling_source.attack_speed.title": "Скорость атаки",
+  "tooltip.relics.soldier_syringe.leveling_source.attack_speed.description": "Эта реликвия получает 1 очко опыта за каждый нанесённый удар",
+
+  "item.relicsofrain.wax_quail": "Восковая перепёлка",
+  "tooltip.relics.wax_quail.description": "Прыжок во время спринта ускоряет вас вперёд",
+  "tooltip.relics.wax_quail.ability.woah": "Ого!",
+  "tooltip.relics.wax_quail.ability.woah.description": "Этот предмет даёт мгновенное ускорение вперёд в %1$s раза каждый раз, когда его владелец прыгает во время спринта",
+  "tooltip.relics.wax_quail.leveling_source.woah.title": "Ого!",
+  "tooltip.relics.wax_quail.leveling_source.woah.description": "Эта реликвия получает 1 очко опыта за каждый прыжок с ускорением",
+
+  "item.relicsofrain.katana_trinket": "Брелок-катана",
+  "tooltip.relics.katana_trinket.description": "Отличное дополнение к твоему рюкзаку!",
+  "tooltip.relics.katana_trinket.ability.agility": "Ловкость",
+  "tooltip.relics.katana_trinket.ability.agility.description": "Позволяет игроку бежать в любом направлении и не замедляться во время атак",
+
+  "item.relicsofrain.crowbar": "Лом",
+  "tooltip.relics.crowbar.description": "Наносит дополнительный урон врагам с более чем 90% здоровья",
+  "tooltip.relics.crowbar.ability.heavy_hitter": "Мощный удар",
+  "tooltip.relics.crowbar.ability.heavy_hitter.description": "Когда носитель атакует врага, у которого больше 90% здоровья, он наносит на %1$s%% больше урона",
+  "tooltip.relics.crowbar.leveling_source.heavy_hitter.title": "Мощный удар",
+  "tooltip.relics.crowbar.leveling_source.heavy_hitter.description": "Эта реликвия получает 1 очко опыта за каждый удар с повышенным уроном",
+  "tooltip.relics.crowbar.ability.pry_it_open": "Вскрыть!",
+  "tooltip.relics.crowbar.ability.pry_it_open.description": "Этот предмет мгновенно разрушает доски",
+  "tooltip.relicsofrain.crowbar.damage_tip": "Когда здоровье врага выше %1$s%%:",
+  "tooltip.relicsofrain.crowbar.damage": " +%1$s%% урона в ближнем бою"
 }

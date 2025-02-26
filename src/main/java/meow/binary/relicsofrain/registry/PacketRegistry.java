@@ -1,8 +1,8 @@
 package meow.binary.relicsofrain.registry;
 
 import meow.binary.relicsofrain.RelicsOfRain;
-import meow.binary.relicsofrain.network.S2CBustlingFungusUpdate;
-import meow.binary.relicsofrain.network.S2CFrostRelicUpdate;
+import meow.binary.relicsofrain.network.BustlingFungusUpdatePacket;
+import meow.binary.relicsofrain.network.FrostRelicUpdatePacket;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -16,7 +16,7 @@ public class PacketRegistry {
                 .versioned("1.0")
                 .optional();
 
-        registrar.playToClient(S2CFrostRelicUpdate.TYPE, S2CFrostRelicUpdate.STREAM_CODEC, S2CFrostRelicUpdate::handle);
-        registrar.playToClient(S2CBustlingFungusUpdate.TYPE, S2CBustlingFungusUpdate.STREAM_CODEC, S2CBustlingFungusUpdate::handle);
+        registrar.playToClient(FrostRelicUpdatePacket.TYPE, FrostRelicUpdatePacket.STREAM_CODEC, FrostRelicUpdatePacket::handle);
+        registrar.playToClient(BustlingFungusUpdatePacket.TYPE, BustlingFungusUpdatePacket.STREAM_CODEC, BustlingFungusUpdatePacket::handle);
     }
 }
