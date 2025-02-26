@@ -2,5 +2,13 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "relicsofrain:item/crowbar"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "broken": 1
+      },
+      "model": "relicsofrain:item/broken_crowbar"
+    }
+  ]
 }
