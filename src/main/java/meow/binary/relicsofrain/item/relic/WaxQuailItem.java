@@ -10,7 +10,6 @@
 //import meow.binary.relicsofrain.item.AbstractRORItem;
 //import meow.binary.relicsofrain.registry.ItemRegistry;
 //import meow.binary.relicsofrain.registry.RarityRegistry;
-//import meow.binary.relicsofrain.util.EntityUtils;
 //import net.minecraft.client.player.LocalPlayer;
 //import net.minecraft.util.Mth;
 //import net.minecraft.world.entity.LivingEntity;
