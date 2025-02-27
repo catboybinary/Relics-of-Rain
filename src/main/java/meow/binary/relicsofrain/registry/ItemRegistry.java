@@ -17,7 +17,7 @@ public class ItemRegistry {
     public static final DeferredItem<EnergyDrinkItem> ENERGY_DRINK = ITEMS.registerItem("energy_drink", EnergyDrinkItem::new);
     public static final DeferredItem<CrowbarItem> CROWBAR = ITEMS.registerItem("crowbar", CrowbarItem::new);
     public static final DeferredItem<UkuleleItem> UKULELE = ITEMS.registerItem("ukulele", UkuleleItem::new);
-    //public static final DeferredItem<WaxQuailItem> WAX_QUAIL = ITEMS.registerItem("wax_quail", WaxQuailItem::new);
+    public static final DeferredItem<WaxQuailItem> WAX_QUAIL = ITEMS.registerItem("wax_quail", WaxQuailItem::new);
     public static final DeferredItem<FrostRelicItem> FROST_RELIC = ITEMS.registerItem("frost_relic", FrostRelicItem::new);
     public static final DeferredItem<KatanaTrinketItem> KATANA_TRINKET = ITEMS.registerItem("katana_trinket", KatanaTrinketItem::new);
     public static final DeferredItem<PlatinumHorseshoeItem> PLATINUM_HORSESHOE = ITEMS.registerItem("platinum_horseshoe", PlatinumHorseshoeItem::new);
