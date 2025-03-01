@@ -8,15 +8,11 @@
     "PlayerMixin"
   ],
   "client": [
-    "EntityEffectAccessor",
     "InputMixin",
-    "ItemInHandRendererMixin",
     "ItemRendererMixin",
     "LivingEntityMixin",
     "LocalPlayerMixin",
-    "MinecraftMixin",
-    "OutlineBufferSourceAccessor",
-    "SimpleBakedModelMixin"
+    "MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1

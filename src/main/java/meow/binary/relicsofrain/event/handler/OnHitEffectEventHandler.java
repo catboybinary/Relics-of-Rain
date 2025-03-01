@@ -12,7 +12,6 @@ public class OnHitEffectEventHandler {
         BuiltInRegistries.ITEM.stream()
                 .filter(item -> item instanceof OnHitEffect)
                 .forEach(item -> NeoForge.EVENT_BUS.register(new Listener((OnHitEffect) item)));
-
     }
 
     private record Listener(OnHitEffect onHitEffectItem) {
