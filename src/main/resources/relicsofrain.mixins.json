@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "relicsofrain.refmap.json",
   "mixins": [
+    "ChatFormattingMixin",
     "PlayerMixin"
   ],
   "client": [

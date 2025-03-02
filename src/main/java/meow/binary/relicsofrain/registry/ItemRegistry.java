@@ -23,6 +23,7 @@ public class ItemRegistry {
     public static final DeferredItem<PlatinumHorseshoeItem> PLATINUM_HORSESHOE = ITEMS.registerItem("platinum_horseshoe", PlatinumHorseshoeItem::new);
     public static final DeferredItem<BrokenMirrorItem> BROKEN_MIRROR = ITEMS.registerItem("broken_mirror", BrokenMirrorItem::new);
     public static final DeferredItem<UnlabeledSyringeItem> UNLABELED_SYRINGE = ITEMS.registerItem("unlabeled_syringe", UnlabeledSyringeItem::new);
+    public static final DeferredItem<IrradiantPearlItem> IRRADIANT_PEARL = ITEMS.registerItem("irradiant_pearl", IrradiantPearlItem::new);
 
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);

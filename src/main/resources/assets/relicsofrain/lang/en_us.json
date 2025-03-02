@@ -79,5 +79,11 @@
   "tooltip.relics.crowbar.leveling_source.heavy_hitter.title": "Heavy Hitter",
   "tooltip.relics.crowbar.leveling_source.heavy_hitter.description": "This relic receives 1 experience point for every increased hit",
   "tooltip.relicsofrain.crowbar.damage_tip": "When enemy's health above %1$s%%:",
-  "tooltip.relicsofrain.crowbar.damage": " +%1$s%% Attack Damage"
+  "tooltip.relicsofrain.crowbar.damage": " +%1$s%% Attack Damage",
+
+  "item.relicsofrain.irradiant_pearl": "Irradiant Pearl",
+  "tooltip.relics.irradiant_pearl.description": "Increase all of your stats. ",
+  "tooltip.relics.irradiant_pearl.ability.1up": "1-UP",
+  "tooltip.relics.irradiant_pearl.ability.1up.description": "Increases all stats by %1$s%%",
+  "tooltip.relicsofrain.irradiant_pearl.all_stats": "All Stats"
 }
