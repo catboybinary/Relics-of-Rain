@@ -18,4 +18,7 @@ public class RarityRegistry {
     public static final EnumProxy<Rarity> LUNAR_RARITY = new EnumProxy<>(
             Rarity.class, -1, RelicsOfRain.MODID + ":lunar", (UnaryOperator<Style>) style -> style.withColor(ChatFormatting.BLUE)
     );
+    public static final EnumProxy<Rarity> SPECIAL_RARITY = new EnumProxy<>(
+            Rarity.class, -1, RelicsOfRain.MODID + ":special", (UnaryOperator<Style>) style -> style.withColor(0xfeff12)
+    );
 }
