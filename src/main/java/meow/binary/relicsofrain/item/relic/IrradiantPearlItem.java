@@ -118,12 +118,17 @@ public class IrradiantPearlItem extends AbstractRORItem {
 
     @Override
     public List<Component> getAttributesTooltip(List<Component> tooltips, TooltipContext context, ItemStack stack) {
+        if (!(stack.getItem() instanceof IrradiantPearlItem relic)) {
+            return tooltips;
+        }
+
         ArrayList<Component> list = new ArrayList<>();
         list.add(Component.empty());
-
-        list.add(Component.translatable("").withStyle(ChatFormatting.GOLD));
-
-        list.add(Component.empty());
+        list.add(Component.translatable("curios.modifiers.charm").withStyle(ChatFormatting.GOLD));
+        list.add(Component.translatable("neoforge.modifier.plus", Component.translatable("neoforge.value.percent",
+                Math.round(relic.getStatValue(stack, "1up", "attribute_modifier")*100)),
+                Component.translatable("tooltip.relicsofrain.irradiant_pearl.all_stats")
+        ).withStyle(ChatFormatting.BLUE));
         return list;
     }
 }

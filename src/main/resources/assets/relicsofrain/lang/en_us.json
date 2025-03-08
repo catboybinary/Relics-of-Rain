@@ -82,8 +82,8 @@
   "tooltip.relicsofrain.crowbar.damage": " +%1$s%% Attack Damage",
 
   "item.relicsofrain.irradiant_pearl": "Irradiant Pearl",
-  "tooltip.relics.irradiant_pearl.description": "Increase all of your stats. ",
+  "tooltip.relics.irradiant_pearl.description": "Increase all of your stats.",
   "tooltip.relics.irradiant_pearl.ability.1up": "1-UP",
-  "tooltip.relics.irradiant_pearl.ability.1up.description": "Increases all stats by %1$s%%",
+  "tooltip.relics.irradiant_pearl.ability.1up.description": "Increases most player stats by %1$s%%",
   "tooltip.relicsofrain.irradiant_pearl.all_stats": "All Stats"
 }
