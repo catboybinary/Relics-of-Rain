@@ -79,5 +79,12 @@
   "tooltip.relics.crowbar.ability.pry_it_open": "Вскрыть!",
   "tooltip.relics.crowbar.ability.pry_it_open.description": "Этот предмет мгновенно разрушает доски",
   "tooltip.relicsofrain.crowbar.damage_tip": "Когда здоровье врага выше %1$s%%:",
-  "tooltip.relicsofrain.crowbar.damage": " +%1$s%% урона в ближнем бою"
+  "tooltip.relicsofrain.crowbar.damage": " +%1$s%% урона в ближнем бою",
+
+  "item.relicsofrain.irradiant_pearl": "Светящаяся жемчужина",
+  "tooltip.relics.irradiant_pearl.description": "Увеличивает все твои характеристики.",
+  "tooltip.relics.irradiant_pearl.ability.1up": "1-UP",
+  "tooltip.relics.irradiant_pearl.ability.1up.description": "Увеличивает большинство характеристик игрока на %1$s%%.",
+  "tooltip.relicsofrain.irradiant_pearl.all_stats": "Все характеристики",
+  "tooltip.relicsofrain.irradiant_pearl.source": "Выпадает со старшего стража."
 }

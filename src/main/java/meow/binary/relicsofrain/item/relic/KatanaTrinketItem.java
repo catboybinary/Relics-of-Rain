@@ -27,8 +27,8 @@ public class KatanaTrinketItem extends AbstractRORItem {
                         .build())
                 .style(StyleData.builder()
                         .beams(BeamsData.builder()
-                                .startColor(0x90909090)
-                                .endColor(0x00ffffff)
+                                .startColor(0x0)
+                                .endColor(0x0)
                                 .build())
                         .build())
                 .build();

@@ -7,12 +7,15 @@ import it.hurts.sskirillss.relics.items.relics.base.data.leveling.AbilityData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.LevelingData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.StatData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOperation;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.BeamsData;
+import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
 import it.hurts.sskirillss.relics.utils.EntityUtils;
 import it.hurts.sskirillss.relics.utils.MathUtils;
 import meow.binary.relicsofrain.RelicsOfRain;
 import meow.binary.relicsofrain.item.AbstractRORItem;
 import meow.binary.relicsofrain.registry.ItemRegistry;
 import meow.binary.relicsofrain.registry.RarityRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -51,6 +54,12 @@ public class IrradiantPearlItem extends AbstractRORItem {
                         .build())
                 .leveling(LevelingData.builder()
                         .maxLevel(10)
+                        .build())
+                .style(StyleData.builder()
+                        .beams(BeamsData.builder()
+                                .startColor(0xff57d1e4)
+                                .endColor(0x0024ffaa)
+                                .build())
                         .build())
                 .build();
     }
@@ -117,6 +126,8 @@ public class IrradiantPearlItem extends AbstractRORItem {
 
     @Override
     public List<Component> getAttributesTooltip(List<Component> tooltips, TooltipContext context, ItemStack stack) {
-        return new ArrayList<>();
+        ArrayList<Component> list = new ArrayList<>();
+        list.add(Component.translatable("tooltip.relicsofrain.irradiant_pearl.source").withStyle(ChatFormatting.GRAY));
+        return list;
     }
 }

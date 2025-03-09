@@ -85,5 +85,6 @@
   "tooltip.relics.irradiant_pearl.description": "Increase all of your stats.",
   "tooltip.relics.irradiant_pearl.ability.1up": "1-UP",
   "tooltip.relics.irradiant_pearl.ability.1up.description": "Increases most player stats by %1$s%%",
+  "tooltip.relicsofrain.irradiant_pearl.source": "Drops from an Elder Guardian.",
   "tooltip.relicsofrain.irradiant_pearl.all_stats": "All Stats"
 }
