@@ -6,6 +6,7 @@ import it.hurts.sskirillss.relics.items.relics.base.data.leveling.AbilityData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.LevelingData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.StatData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOperation;
+import it.hurts.sskirillss.relics.items.relics.base.data.research.ResearchData;
 import it.hurts.sskirillss.relics.utils.EntityUtils;
 import it.hurts.sskirillss.relics.utils.MathUtils;
 import meow.binary.relicsofrain.item.AbstractRORItem;
@@ -36,6 +37,22 @@ public class WaxQuailItem extends AbstractRORItem {
                                         .upgradeModifier(UpgradeOperation.ADD, 0.15)
                                         .formatValue(value -> MathUtils.round(value, 2))
                                         .build())
+                                .research(ResearchData.builder()
+                                        .star(0,4,4)
+                                        .star(1,13,8)
+                                        .star(2,18,3)
+                                        .star(3,21,8)
+                                        .star(4,13,17)
+                                        .star(5,2,22)
+                                        .star(6,12,23)
+                                        .link(0, 1)
+                                        .link(1, 2)
+                                        .link(1, 3)
+                                        .link(3, 4)
+                                        .link(0, 4)
+                                        .link(4, 5)
+                                        .link(5, 6)
+                                        .build())
                                 .build())
                         .build())
                 .leveling(LevelingData.builder()
@@ -43,6 +60,7 @@ public class WaxQuailItem extends AbstractRORItem {
                         .build())
                 .build();
     }
+
 
     @SubscribeEvent
     public static void onJump(LivingEvent.LivingJumpEvent e) {
