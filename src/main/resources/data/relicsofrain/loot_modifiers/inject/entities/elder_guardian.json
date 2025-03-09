@@ -6,5 +6,5 @@
       "loot_table_id": "minecraft:entities/elder_guardian"
     }
   ],
-  "table": "relicsofrain:entities/elder_guardian_pearl"
+  "table": "relicsofrain:inject/entities/elder_guardian"
 }

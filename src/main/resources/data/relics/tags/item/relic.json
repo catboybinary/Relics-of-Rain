@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#relicsofrain:common",
+    "#relicsofrain:uncommon",
+    "#relicsofrain:legendary",
+    "#relicsofrain:lunar",
+    "#relicsofrain:special"
+  ]
+}
