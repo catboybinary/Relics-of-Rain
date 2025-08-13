@@ -1,7 +1,5 @@
 package meow.binary.relicsofrain.entity.projectile;
 
-import it.hurts.octostudios.octolib.modules.particles.OctoRenderManager;
-import it.hurts.octostudios.octolib.modules.particles.trail.TrailProvider;
 import it.hurts.sskirillss.relics.entities.misc.ITargetableEntity;
 import it.hurts.sskirillss.relics.items.relics.base.IRelicItem;
 import it.hurts.sskirillss.relics.network.NetworkHandler;
@@ -26,7 +24,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class LightningArc extends ThrowableProjectile implements ITargetableEntity, TrailProvider {
+public class LightningArc extends ThrowableProjectile implements ITargetableEntity {
     @Setter
     private double damage = 0d;
     @Setter
@@ -61,17 +59,6 @@ public class LightningArc extends ThrowableProjectile implements ITargetableEnti
     @Override
     public void onAddedToLevel() {
         super.onAddedToLevel();
-        OctoRenderManager.registerProvider(this);
-    }
-
-    @Override
-    public int getTrailInterpolationPoints() {
-        return 1;
-    }
-
-    @Override
-    public List<Vec3> getTrailRenderPositions(List<Vec3> points, float pTicks) {
-        return points;
     }
 
     @Override
@@ -117,45 +104,5 @@ public class LightningArc extends ThrowableProjectile implements ITargetableEnti
         lastTarget = currentTarget;
         currentTarget = livingEntity;
         if (!this.level().isClientSide && livingEntity != null) NetworkHandler.sendToClientsTrackingEntity(new S2CEntityTargetPacket(getId(), livingEntity.getId()), this);
-    }
-
-    @Override
-    public Vec3 getTrailPosition(float partialTicks) {
-        return getPosition(1f);
-    }
-
-    @Override
-    public int getTrailUpdateFrequency() {
-        return 1;
-    }
-
-    @Override
-    public boolean isTrailAlive() {
-        return isAlive();
-    }
-
-    @Override
-    public boolean isTrailGrowing() {
-        return this.tickCount > 0;
-    }
-
-    @Override
-    public int getTrailMaxLength() {
-        return 3;
-    }
-
-    @Override
-    public int getTrailFadeInColor() {
-        return 0xFF00FFFF;
-    }
-
-    @Override
-    public int getTrailFadeOutColor() {
-        return 0x300000FF;
-    }
-
-    @Override
-    public double getTrailScale() {
-        return 0.025F;
     }
 }

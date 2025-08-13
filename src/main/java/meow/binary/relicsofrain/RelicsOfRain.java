@@ -1,7 +1,10 @@
 package meow.binary.relicsofrain;
 
 import com.mojang.logging.LogUtils;
+import it.hurts.octostudios.octolib.module.particle.trail.EntityTrailRegistry;
 import it.hurts.sskirillss.relics.client.renderer.entities.NullRenderer;
+import meow.binary.relicsofrain.client.trail.LightningTrail;
+import meow.binary.relicsofrain.entity.projectile.LightningArc;
 import meow.binary.relicsofrain.item.relic.CrowbarItem;
 import meow.binary.relicsofrain.registry.*;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -53,6 +56,8 @@ public class RelicsOfRain {
                         (stack, level, player, seed) -> CrowbarItem.isBroken(stack) ? 1 : 0
                 );
             });
+
+            EntityTrailRegistry.registerProvider(EntityRegistry.LIGHTNING_ARC.get(), LightningTrail::new);
         }
 
         @SubscribeEvent
